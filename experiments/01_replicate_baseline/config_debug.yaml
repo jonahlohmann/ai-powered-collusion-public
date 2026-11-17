@@ -1,0 +1,41 @@
+# Debug-scale baseline replication — coarse grids, two-extreme σ_u, n_sim=2.
+# Intended for end-to-end smoke testing of the runner, not for results.
+
+experiment:
+  name: "baseline_replication_debug"
+
+params: "../shared/params_debug.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "qlearner"
+
+sweep:
+  sigma_u: [0.1, 100.0]
+
+simulation:
+  n_sim: 2
+  convergence_periods: 1000
+  max_periods: 100000
+  eval_periods: 10000
+  check_every: 1000
+  seed_base: 42
+
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 3
+  noise:
+    units: "price_bins"
+    magnitudes: [1.0, 2.0]
+  deviation:
+    enabled: true
+    bins: [1]
+    agents: [0, 1]
+
+runner:
+  log_every: 50000
+
+output:
+  directory: "results/debug_smoke_test"

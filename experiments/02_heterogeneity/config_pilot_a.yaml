@@ -1,0 +1,70 @@
+# Pilot of the AC learner's settings, setting a (not one of the 12 runs of the thesis). It is
+# the population Q–AC of config_r2_q_ac.yaml with 4 sessions, a cap of 60M periods and the
+# default settings of the AC learner (alpha_actor 0.1, entropy_coef 0.1). Pick rule, fixed
+# before the pilot: the highest share of converged or settled sessions; ties go to setting a;
+# the pick must have a policy concentration >= 0.9. Delta^C is not a criterion.
+#
+# Run, one session per call (i = 0 to 3; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/02_heterogeneity/config_pilot_a.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/pilot_a/s<i>
+# Names recorded at run time in the metadata and logs under results/pilot_a/:
+# experiment "qa_tune_a", config_qa_tune_a.yaml.
+
+experiment:
+  name: "pilot_a"
+  description: "Pilot, setting a: Q–AC, 4 sessions, cap 60M, alpha_actor 0.1, entropy_coef 0.1"
+
+params: "../shared/params_baseline.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "actor_critic"
+    config:
+      alpha_actor: 0.1
+      entropy_coef: 0.1
+
+sweep:
+  sigma_u: [1.0]
+
+simulation:
+  n_sim: 4
+  convergence_periods: 1000000
+  max_periods: 60000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: "price_bins"
+    magnitudes: [0.125, 0.25, 0.5]
+  deviation:
+    enabled: true
+    bins: [4, 8]
+    agents: [0, 1]
+
+runner:
+  log_every: 1000000
+
+output:
+  directory: "results/pilot_a"
+
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: "raw"
+  market_maker: "rolling_ols"

@@ -1,0 +1,109 @@
+{
+  "config_path": "./experiments/01_replicate_baseline/config_paper_exact.yaml",
+  "experiment_name": "paper_exact",
+  "code_version": "7d8c14549eb370c801e67b11693d198c309dece9",
+  "started_utc": "2026-11-09T04:53:38.254380+00:00",
+  "finished_utc": "2026-11-09T06:54:38.010549+00:00",
+  "session_id_start": 7,
+  "n_sim": 1,
+  "output_dir": "./results/paper_exact/s7",
+  "sweep_sigma_u": [
+    1.0
+  ],
+  "python": "3.13.7 (main, Aug 14 2025, 11:12:11) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "numpy": "2.4.4",
+  "cli_overrides": {
+    "session_id_start": 7,
+    "n_sim": 1,
+    "output_dir": "results/paper_exact/s7",
+    "max_periods": null
+  },
+  "resolved_config": {
+    "n_agents": 2,
+    "xi": 500,
+    "sigma_u": 1.0,
+    "rho": 0.95,
+    "theta": 0.1,
+    "n_v": 10,
+    "n_x": 15,
+    "n_p": 31,
+    "T_m": 10000,
+    "iota": 0.1,
+    "action_grid": "per_v",
+    "exploration_counter": "v",
+    "q_init": "paper",
+    "alpha": 0.01,
+    "beta": 5e-07,
+    "convergence_periods": 1000000,
+    "max_periods": 400000000,
+    "reward_price": "raw",
+    "market_maker": "rolling_ols",
+    "experiment": {
+      "name": "paper_exact",
+      "description": "R8 (optional): paper-exact n_v 10 and beta 5e-7, 8 sessions, cap 400M"
+    },
+    "agents": [
+      {
+        "type": "qlearner"
+      },
+      {
+        "type": "qlearner"
+      }
+    ],
+    "sweep": {
+      "sigma_u": [
+        1.0
+      ]
+    },
+    "simulation": {
+      "n_sim": 1,
+      "convergence_periods": 1000000,
+      "max_periods": 400000000,
+      "eval_periods": 100000,
+      "save_eval_periods": 10000,
+      "eval_greedy": true,
+      "check_every": 1000,
+      "seed_base": 42,
+      "session_id_start": 7,
+      "diagnostics": {
+        "enabled": true,
+        "block_periods": 1000000,
+        "onpath_min_share": 0.001,
+        "settled_max_flip_share": 0.1,
+        "trajectory_eval_periods": 20000
+      }
+    },
+    "irf": {
+      "enabled": true,
+      "pre_periods": 3,
+      "post_periods": 6,
+      "n_trials": 100,
+      "noise": {
+        "units": "price_bins",
+        "magnitudes": [
+          0.125,
+          0.25,
+          0.5
+        ]
+      },
+      "deviation": {
+        "enabled": true,
+        "bins": [
+          4,
+          8
+        ],
+        "agents": [
+          0,
+          1
+        ]
+      }
+    },
+    "runner": {
+      "log_every": 1000000
+    },
+    "output": {
+      "directory": "results/paper_exact/s7"
+    },
+    "save_qtables": true
+  }
+}

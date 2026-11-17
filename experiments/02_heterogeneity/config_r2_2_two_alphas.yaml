@@ -1,0 +1,70 @@
+# R2.2: two Q-learners with different learning rates. It is config_r1_baseline.yaml (baseline
+# specification) with ONE change: agent 1 learns with alpha 0.1 instead of 0.01
+# (agents: [qlearner, qlearner{alpha: 0.1}]). Purpose: DGJ's own form of heterogeneity (Dou et
+# al., 2025, Online Appendix 4.12, Figures IA.10 and IA.11) next to the populations with an AC
+# learner. Everything else is identical to config_r1_baseline.yaml.
+#
+# Run, one session per call (i = 0 to 29; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/02_heterogeneity/config_r2_2_two_alphas.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r2_2_two_alphas/s<i>
+# Names recorded at run time in the metadata and logs under results/r2_2_two_alphas/:
+# experiment "alpha_het", config_alpha_het.yaml.
+
+experiment:
+  name: r2_2_two_alphas
+  description: 'R2.2: two Q-learners with heterogeneous learning rates alpha 0.01 and 0.1 at the baseline specification (paper Online
+    Appendix 4.12)'
+params: ../shared/params_baseline.yaml
+agents:
+- type: qlearner
+- type: qlearner
+  config:
+    alpha: 0.1
+sweep:
+  sigma_u:
+  - 1.0
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 100000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.1
+    trajectory_eval_periods: 20000
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: price_bins
+    magnitudes:
+    - 0.125
+    - 0.25
+    - 0.5
+  deviation:
+    enabled: true
+    bins:
+    - 4
+    - 8
+    agents:
+    - 0
+    - 1
+runner:
+  log_every: 1000000
+output:
+  directory: results/r2_2_two_alphas
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: raw
+  market_maker: rolling_ols

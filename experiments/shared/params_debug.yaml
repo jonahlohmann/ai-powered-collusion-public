@@ -1,0 +1,19 @@
+# Debugging parameter set — minimal grid, 2 simulations, fast iteration
+n_agents: 2          # number of strategic informed speculators
+xi: 500              # demand elasticity of information-insensitive investors
+rho: 0.95            # subjective discount factor (Bellman equation)
+theta: 0.1           # market-maker inventory penalty
+T_m: 10000           # market-maker rolling-regression window length (DGJ, Section 4.1)
+seed: 42             # global RNG seed for reproducibility
+
+n_v: 3               # grid points for fundamental value
+n_x: 5               # grid points for the action grid X (order quantity per period)
+n_p: 11              # grid points for price (n_p/n_x = 2.2, within [1.8, 2.3])
+
+alpha: 0.1           # Q-learning rate — higher = faster but noisier updates
+beta: 1.0e-4         # exploration decay — higher = exploration ends sooner
+
+convergence_criterion: 1000    # consecutive unchanged-strategy periods before declaring convergence
+max_periods: 100000            # hard cap; abort session if reached
+n_sim: 2                       # simulation sessions per parameter point
+sigma_u: [0.1]                 # noise trader order flow std — single cell only

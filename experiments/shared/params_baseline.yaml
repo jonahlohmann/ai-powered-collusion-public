@@ -1,0 +1,50 @@
+# The baseline specification: DGJ's description at n_v = 5. Used by R1, R1.3 to R1.6, R1.8,
+# R2, R2.1, R2.2, the validation runs and the pilot. beta = 1e-6 gives 430 random draws per
+# state-action cell, the same as DGJ's beta = 5e-7 at n_v = 10.
+#
+# It is params_earlier_spec.yaml with the three switches that follow DGJ's description
+# (action_grid, exploration_counter, q_init), beta, DGJ's convergence window of 1M periods and
+# a cap of 100M periods. Definitions: docs/parameters.md; the choices and what they do to the
+# result: docs/implementation-choices.md.
+#
+# Grid: n_x (15) and n_p (31) are DGJ's values. Only n_v is reduced (10 → 5) for computational
+# feasibility. To compensate, the benchmarks use the variance of the value grid, Var(v_grid),
+# instead of sigma_v^2 (src/ai_trading/simulation/benchmarks.py).
+#
+# Action grid: per v (DGJ, Section 4.2, read as a function of v). 15 levels of the trading
+# intensity χ from χ^M − ι(χ^N − χ^M) = 120.83 to χ^N + ι(χ^N − χ^M) = 170.83 (step 3.57);
+# action a at value v_k trades x = χ_a · (v_k − v̄). Largest |x| = 218.93, as on the
+# global grid. At v = v̄ every action trades zero.
+# Price grid: DGJ, Section 4.2 (range ≈ ±1.03 at σ_u = 1, spacing 0.0687); used only to
+# index the lagged-price state — rewards use the raw clearing price. The run configurations
+# set the noise level themselves (overrides: sigma_u).
+
+# --- Model parameters (DGJ, Section 4.2) ---
+n_agents: 2
+xi: 500
+sigma_u: 0.1
+rho: 0.95
+theta: 0.1
+
+# --- Discretisation (DGJ, Section 4.2; n_v reduced) ---
+n_v: 5
+n_x: 15
+n_p: 31
+T_m: 10000
+iota: 0.1             # action-grid padding factor on (χ^N − χ^M)
+
+# --- Switches that follow DGJ's description (the defaults "global", "state" and "optimistic"
+#     give the earlier specification) ---
+action_grid: "per_v"          # "global" (one quantity grid) | "per_v" (χ levels per v)
+exploration_counter: "v"      # "state" (per full state) | "v" (DGJ, eq. 4.3)
+q_init: "paper"               # "optimistic" (V^M) | "paper" (DGJ, Section 4.2) | "zero"
+
+# --- Training hyperparameters ---
+alpha: 0.01
+beta: 1.0e-6          # with the per-v counter: 430 random draws per state-action cell
+convergence_periods: 1000000  # DGJ, Section 4.2
+max_periods: 100000000        # 100M cap
+
+# --- Pipeline switches ---
+reward_price: "raw"           # "raw" (DGJ, Section 4.1) | "snapped" (rounded price; R1.3 only)
+market_maker: "rolling_ols"   # "rolling_ols" (DGJ, eq. 4.2) | "fixed_lambda" (λ = λ^N)

@@ -1,0 +1,38 @@
+# The earlier specification, used by R1.1 and R1.2: one global grid of order sizes, an
+# exploration counter per state, optimistic Q-initialisation and beta = 5e-4 (the defaults of
+# the three switches action_grid, exploration_counter and q_init; see params_baseline.yaml).
+#
+# Grid: n_x (15) and n_p (31) are DGJ's values. Only n_v is reduced (10 → 5) for computational
+# feasibility. To compensate, the benchmarks use the variance of the value grid, Var(v_grid),
+# instead of sigma_v^2 (src/ai_trading/simulation/benchmarks.py).
+#
+# Action grid: DGJ, Section 4.2; the bounds run from χ^M·dv_min to χ^N·dv_max
+# with iota padding on both sides (range ≈ [-219, +219], spacing 31.3).
+# Price grid: DGJ, Section 4.2 (range ≈ ±1.03 at σ_u = 1,
+# spacing 0.0687); used only to index the lagged-price state — rewards use
+# the raw clearing price. The run configurations set the noise level themselves
+# (overrides: sigma_u) and their own stopping rule (simulation: convergence_periods, max_periods).
+
+# --- Model parameters (DGJ, Section 4.2) ---
+n_agents: 2
+xi: 500
+sigma_u: 0.1
+rho: 0.95
+theta: 0.1
+
+# --- Discretisation (DGJ, Section 4.2; n_v reduced) ---
+n_v: 5
+n_x: 15
+n_p: 31
+T_m: 10000
+iota: 0.1             # action-grid padding factor on (χ^N − χ^M)
+
+# --- Training hyperparameters ---
+alpha: 0.01
+beta: 5.0e-4          # about 1000 times DGJ's 5e-7
+convergence_periods: 100000   # R1.1; R1.2 sets 1M in its configuration
+max_periods: 10000000         # 10M cap (R1.1); R1.2 sets 40M in its configuration
+
+# --- Pipeline switches ---
+reward_price: "raw"           # "raw" (DGJ, Section 4.1) | "snapped" (rounded price; R1.3 only)
+market_maker: "rolling_ols"   # "rolling_ols" (DGJ, eq. 4.2) | "fixed_lambda" (λ = λ^N)

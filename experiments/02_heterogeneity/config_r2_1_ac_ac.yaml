@@ -1,0 +1,66 @@
+# R2.1: the population AC–AC. Two AC learners (tabular softmax actor-critics) under the
+# baseline specification (params_baseline.yaml). The run separates "the learners differ" from
+# "an AC learner is present". Simulation and IRF blocks and the settings of the AC learners
+# (the defaults) are those of config_r2_q_ac.yaml.
+#
+# Run, one session per call (i = 0 to 29; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/02_heterogeneity/config_r2_1_ac_ac.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r2_1_ac_ac/s<i>
+# Names recorded at run time in the metadata and logs under results/r2_1_ac_ac/:
+# experiment "aa", config_aa.yaml.
+
+experiment:
+  name: "r2_1_ac_ac"
+  description: "AC–AC population at the baseline specification: two tabular softmax actor-critics; 30 sessions"
+
+params: "../shared/params_baseline.yaml"
+
+agents:
+  - type: "actor_critic"
+  - type: "actor_critic"
+
+sweep:
+  sigma_u: [1.0]
+
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 100000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: "price_bins"
+    magnitudes: [0.125, 0.25, 0.5]
+  deviation:
+    enabled: true
+    bins: [4, 8]
+    agents: [0, 1]
+
+runner:
+  log_every: 1000000
+
+output:
+  directory: "results/r2_1_ac_ac"
+
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: "raw"
+  market_maker: "rolling_ols"

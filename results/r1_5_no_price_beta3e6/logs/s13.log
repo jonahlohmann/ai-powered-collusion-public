@@ -1,0 +1,67 @@
+2026-11-12 23:59:00,384 __main__ INFO experiment start config=./experiments/01_replicate_baseline/config_m2_noprice_beta3e6.yaml sweep_size=1 n_sim=1 session_id_start=13 code_version=c2dcdbf31cddb97a67f3bd18453d1f2ad78aec86+dirty
+2026-11-12 23:59:33,815 __main__ INFO block session=13 period=1000000 delta_c=0.4249 flip_share=0.800 n_onpath=25
+2026-11-12 23:59:33,816 __main__ INFO training session=13 sigma_u=1 period=1000000 unchanged=0
+2026-11-13 00:00:07,111 __main__ INFO block session=13 period=2000000 delta_c=0.4002 flip_share=0.800 n_onpath=25
+2026-11-13 00:00:07,112 __main__ INFO training session=13 sigma_u=1 period=2000000 unchanged=0
+2026-11-13 00:00:43,190 __main__ INFO block session=13 period=3000000 delta_c=0.5001 flip_share=0.800 n_onpath=25
+2026-11-13 00:00:43,191 __main__ INFO training session=13 sigma_u=1 period=3000000 unchanged=0
+2026-11-13 00:01:19,734 __main__ INFO block session=13 period=4000000 delta_c=0.3375 flip_share=0.800 n_onpath=25
+2026-11-13 00:01:19,734 __main__ INFO training session=13 sigma_u=1 period=4000000 unchanged=0
+2026-11-13 00:01:53,292 __main__ INFO block session=13 period=5000000 delta_c=0.3398 flip_share=0.800 n_onpath=25
+2026-11-13 00:01:53,293 __main__ INFO training session=13 sigma_u=1 period=5000000 unchanged=0
+2026-11-13 00:02:24,249 __main__ INFO block session=13 period=6000000 delta_c=0.3111 flip_share=0.800 n_onpath=25
+2026-11-13 00:02:24,250 __main__ INFO training session=13 sigma_u=1 period=6000000 unchanged=0
+2026-11-13 00:02:55,270 __main__ INFO block session=13 period=7000000 delta_c=0.3376 flip_share=0.800 n_onpath=25
+2026-11-13 00:02:55,271 __main__ INFO training session=13 sigma_u=1 period=7000000 unchanged=0
+2026-11-13 00:03:25,691 __main__ INFO block session=13 period=8000000 delta_c=0.3015 flip_share=0.760 n_onpath=25
+2026-11-13 00:03:25,692 __main__ INFO training session=13 sigma_u=1 period=8000000 unchanged=1
+2026-11-13 00:03:57,253 __main__ INFO block session=13 period=9000000 delta_c=0.3187 flip_share=0.800 n_onpath=25
+2026-11-13 00:03:57,253 __main__ INFO training session=13 sigma_u=1 period=9000000 unchanged=1
+2026-11-13 00:04:35,949 __main__ INFO block session=13 period=10000000 delta_c=0.3536 flip_share=0.640 n_onpath=25
+2026-11-13 00:04:35,950 __main__ INFO training session=13 sigma_u=1 period=10000000 unchanged=0
+2026-11-13 00:05:13,672 __main__ INFO block session=13 period=11000000 delta_c=0.2607 flip_share=0.740 n_onpath=25
+2026-11-13 00:05:13,673 __main__ INFO training session=13 sigma_u=1 period=11000000 unchanged=0
+2026-11-13 00:05:52,163 __main__ INFO block session=13 period=12000000 delta_c=0.2995 flip_share=0.420 n_onpath=25
+2026-11-13 00:05:52,164 __main__ INFO training session=13 sigma_u=1 period=12000000 unchanged=44
+2026-11-13 00:06:25,177 __main__ INFO block session=13 period=13000000 delta_c=0.2508 flip_share=0.780 n_onpath=25
+2026-11-13 00:06:25,178 __main__ INFO training session=13 sigma_u=1 period=13000000 unchanged=8
+2026-11-13 00:06:57,741 __main__ INFO block session=13 period=14000000 delta_c=0.2673 flip_share=0.500 n_onpath=25
+2026-11-13 00:06:57,742 __main__ INFO training session=13 sigma_u=1 period=14000000 unchanged=1
+2026-11-13 00:07:28,696 __main__ INFO block session=13 period=15000000 delta_c=0.2683 flip_share=0.680 n_onpath=25
+2026-11-13 00:07:28,696 __main__ INFO training session=13 sigma_u=1 period=15000000 unchanged=4
+2026-11-13 00:07:59,670 __main__ INFO block session=13 period=16000000 delta_c=0.2720 flip_share=0.400 n_onpath=25
+2026-11-13 00:07:59,671 __main__ INFO training session=13 sigma_u=1 period=16000000 unchanged=0
+2026-11-13 00:08:32,029 __main__ INFO block session=13 period=17000000 delta_c=0.1127 flip_share=0.760 n_onpath=25
+2026-11-13 00:08:32,029 __main__ INFO training session=13 sigma_u=1 period=17000000 unchanged=23
+2026-11-13 00:09:06,804 __main__ INFO block session=13 period=18000000 delta_c=0.1580 flip_share=0.560 n_onpath=25
+2026-11-13 00:09:06,804 __main__ INFO training session=13 sigma_u=1 period=18000000 unchanged=0
+2026-11-13 00:09:39,842 __main__ INFO block session=13 period=19000000 delta_c=0.1406 flip_share=0.400 n_onpath=25
+2026-11-13 00:09:39,843 __main__ INFO training session=13 sigma_u=1 period=19000000 unchanged=0
+2026-11-13 00:10:11,521 __main__ INFO block session=13 period=20000000 delta_c=0.1867 flip_share=0.400 n_onpath=25
+2026-11-13 00:10:11,521 __main__ INFO training session=13 sigma_u=1 period=20000000 unchanged=4
+2026-11-13 00:10:44,325 __main__ INFO block session=13 period=21000000 delta_c=0.2899 flip_share=0.400 n_onpath=25
+2026-11-13 00:10:44,326 __main__ INFO training session=13 sigma_u=1 period=21000000 unchanged=0
+2026-11-13 00:11:17,231 __main__ INFO block session=13 period=22000000 delta_c=0.1705 flip_share=0.360 n_onpath=25
+2026-11-13 00:11:17,232 __main__ INFO training session=13 sigma_u=1 period=22000000 unchanged=214
+2026-11-13 00:11:48,462 __main__ INFO block session=13 period=23000000 delta_c=0.1414 flip_share=0.200 n_onpath=25
+2026-11-13 00:11:48,463 __main__ INFO training session=13 sigma_u=1 period=23000000 unchanged=252
+2026-11-13 00:12:21,269 __main__ INFO block session=13 period=24000000 delta_c=0.1837 flip_share=0.260 n_onpath=25
+2026-11-13 00:12:21,271 __main__ INFO training session=13 sigma_u=1 period=24000000 unchanged=209
+2026-11-13 00:12:54,168 __main__ INFO block session=13 period=25000000 delta_c=0.1736 flip_share=0.300 n_onpath=25
+2026-11-13 00:12:54,169 __main__ INFO training session=13 sigma_u=1 period=25000000 unchanged=40
+2026-11-13 00:13:30,789 __main__ INFO block session=13 period=26000000 delta_c=0.2022 flip_share=0.400 n_onpath=25
+2026-11-13 00:13:30,790 __main__ INFO training session=13 sigma_u=1 period=26000000 unchanged=12
+2026-11-13 00:14:06,912 __main__ INFO block session=13 period=27000000 delta_c=0.1999 flip_share=0.020 n_onpath=25
+2026-11-13 00:14:06,913 __main__ INFO training session=13 sigma_u=1 period=27000000 unchanged=118
+2026-11-13 00:14:37,991 __main__ INFO block session=13 period=28000000 delta_c=0.1728 flip_share=0.160 n_onpath=25
+2026-11-13 00:14:37,992 __main__ INFO training session=13 sigma_u=1 period=28000000 unchanged=38
+2026-11-13 00:15:09,155 __main__ INFO block session=13 period=29000000 delta_c=0.2508 flip_share=0.180 n_onpath=25
+2026-11-13 00:15:09,155 __main__ INFO training session=13 sigma_u=1 period=29000000 unchanged=2
+2026-11-13 00:15:40,907 __main__ INFO block session=13 period=30000000 delta_c=0.1504 flip_share=0.180 n_onpath=25
+2026-11-13 00:15:40,908 __main__ INFO training session=13 sigma_u=1 period=30000000 unchanged=73
+2026-11-13 00:16:10,140 __main__ INFO saved Q-tables session=13 to ./results/m2_noprice_beta3e6/s13/qtables/session_013
+2026-11-13 00:16:10,140 __main__ INFO eval start session=13 sigma_u=1 periods=100000 greedy=True
+2026-11-13 00:16:12,241 __main__ INFO session done sigma_u=1 session=13 converged=True periods=30927000 delta_c=0.1482 delta_c_expected=0.1252 periods/s=30034
+2026-11-13 00:16:12,398 __main__ INFO wrote ./results/m2_noprice_beta3e6/s13/sessions.parquet (1 rows)
+2026-11-13 00:16:12,445 __main__ INFO wrote ./results/m2_noprice_beta3e6/s13/periods.parquet (10000 rows)
+2026-11-13 00:16:12,448 __main__ INFO wrote ./results/m2_noprice_beta3e6/s13/trajectory.parquet (30 rows)

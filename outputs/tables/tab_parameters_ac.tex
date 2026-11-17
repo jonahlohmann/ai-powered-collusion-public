@@ -1,0 +1,12 @@
+\begin{tabular}{@{}lr>{\raggedright\arraybackslash}p{8.75cm}@{}}
+\toprule
+Setting & Value & Reason \\
+\midrule
+Step size of the actor & 0.1 & Set before the first run with an AC learner and kept after the pilot (Appendix~\ref{app:validation}). \\
+Step size of the critic & 0.05 & Set before the first run with an AC learner. The pilot did not vary it. \\
+Entropy bonus at the start & 0.1 & Set before the first run with an AC learner and kept after the pilot (Appendix~\ref{app:validation}). \\
+Decay of the entropy bonus & $\beta$ & The bonus fades at the pace at which the exploration of the Q-learner fades (Table~\ref{tab:parameters-full}), so that the policy can narrow to one action. \\
+Scale of the surprise & cartel profit & The actor's step acts on the surprise divided by the cartel profit, so that the step size does not depend on the unit of profit (Section~\ref{sec:learners}). \\
+Initial values & random play & All preferences start at zero, so every action is equally likely at first. The critic starts at the value of a state when both agents play at random. \\
+\bottomrule
+\end{tabular}

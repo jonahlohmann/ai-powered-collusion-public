@@ -1,0 +1,41 @@
+2026-11-05 17:41:41,137 __main__ INFO experiment start config=./experiments/01_replicate_baseline/config_m1_long.yaml sweep_size=1 n_sim=1 session_id_start=27 code_version=543d903555f8b8f4e9229a606f9295db65004c54
+2026-11-05 17:41:56,131 __main__ INFO training session=27 sigma_u=1 period=500000 unchanged=0
+2026-11-05 17:42:11,157 __main__ INFO block session=27 period=1000000 delta_c=-0.1707 flip_share=0.983 n_onpath=385
+2026-11-05 17:42:11,158 __main__ INFO training session=27 sigma_u=1 period=1000000 unchanged=0
+2026-11-05 17:42:26,650 __main__ INFO training session=27 sigma_u=1 period=1500000 unchanged=0
+2026-11-05 17:42:43,016 __main__ INFO block session=27 period=2000000 delta_c=-0.5525 flip_share=0.959 n_onpath=218
+2026-11-05 17:42:43,017 __main__ INFO training session=27 sigma_u=1 period=2000000 unchanged=0
+2026-11-05 17:42:58,706 __main__ INFO training session=27 sigma_u=1 period=2500000 unchanged=0
+2026-11-05 17:43:13,911 __main__ INFO block session=27 period=3000000 delta_c=-0.3535 flip_share=0.906 n_onpath=235
+2026-11-05 17:43:13,911 __main__ INFO training session=27 sigma_u=1 period=3000000 unchanged=0
+2026-11-05 17:43:27,841 __main__ INFO training session=27 sigma_u=1 period=3500000 unchanged=0
+2026-11-05 17:43:41,983 __main__ INFO block session=27 period=4000000 delta_c=-0.5655 flip_share=0.500 n_onpath=245
+2026-11-05 17:43:41,985 __main__ INFO training session=27 sigma_u=1 period=4000000 unchanged=0
+2026-11-05 17:43:56,083 __main__ INFO training session=27 sigma_u=1 period=4500000 unchanged=0
+2026-11-05 17:44:10,086 __main__ INFO block session=27 period=5000000 delta_c=-0.3190 flip_share=1.000 n_onpath=205
+2026-11-05 17:44:10,086 __main__ INFO training session=27 sigma_u=1 period=5000000 unchanged=0
+2026-11-05 17:44:25,524 __main__ INFO training session=27 sigma_u=1 period=5500000 unchanged=0
+2026-11-05 17:44:40,679 __main__ INFO block session=27 period=6000000 delta_c=-0.0342 flip_share=0.555 n_onpath=211
+2026-11-05 17:44:40,680 __main__ INFO training session=27 sigma_u=1 period=6000000 unchanged=0
+2026-11-05 17:44:54,969 __main__ INFO training session=27 sigma_u=1 period=6500000 unchanged=0
+2026-11-05 17:45:09,641 __main__ INFO block session=27 period=7000000 delta_c=0.0306 flip_share=0.500 n_onpath=148
+2026-11-05 17:45:09,641 __main__ INFO training session=27 sigma_u=1 period=7000000 unchanged=0
+2026-11-05 17:45:24,538 __main__ INFO training session=27 sigma_u=1 period=7500000 unchanged=0
+2026-11-05 17:45:39,139 __main__ INFO block session=27 period=8000000 delta_c=-0.5296 flip_share=0.505 n_onpath=100
+2026-11-05 17:45:39,140 __main__ INFO training session=27 sigma_u=1 period=8000000 unchanged=0
+2026-11-05 17:45:54,026 __main__ INFO training session=27 sigma_u=1 period=8500000 unchanged=0
+2026-11-05 17:46:10,079 __main__ INFO block session=27 period=9000000 delta_c=0.2738 flip_share=0.454 n_onpath=65
+2026-11-05 17:46:10,080 __main__ INFO training session=27 sigma_u=1 period=9000000 unchanged=9
+2026-11-05 17:46:26,319 __main__ INFO training session=27 sigma_u=1 period=9500000 unchanged=0
+2026-11-05 17:46:42,002 __main__ INFO block session=27 period=10000000 delta_c=0.2904 flip_share=0.036 n_onpath=56
+2026-11-05 17:46:42,003 __main__ INFO training session=27 sigma_u=1 period=10000000 unchanged=257
+2026-11-05 17:46:57,031 __main__ INFO training session=27 sigma_u=1 period=10500000 unchanged=191
+2026-11-05 17:47:13,120 __main__ INFO block session=27 period=11000000 delta_c=0.2847 flip_share=0.008 n_onpath=63
+2026-11-05 17:47:13,121 __main__ INFO training session=27 sigma_u=1 period=11000000 unchanged=691
+2026-11-05 17:47:23,076 __main__ INFO saved Q-tables session=27 to ./results/m1_long/s27/qtables/session_027
+2026-11-05 17:47:23,077 __main__ INFO eval start session=27 sigma_u=1 periods=100000 greedy=True
+2026-11-05 17:47:24,875 __main__ INFO irf start session=27 sigma_u=1
+2026-11-05 17:47:25,143 __main__ INFO session done sigma_u=1 session=27 converged=True periods=11309000 delta_c=0.2818 delta_c_expected=0.3028 periods/s=33072
+2026-11-05 17:47:25,216 __main__ INFO wrote ./results/m1_long/s27/sessions.parquet (1 rows)
+2026-11-05 17:47:25,371 __main__ INFO wrote ./results/m1_long/s27/periods.parquet (11920 rows)
+2026-11-05 17:47:25,377 __main__ INFO wrote ./results/m1_long/s27/trajectory.parquet (11 rows)

@@ -1,0 +1,29 @@
+2026-11-08 11:59:29,751 __main__ INFO experiment start config=./experiments/02_heterogeneity/config_br_ac.yaml sweep_size=1 n_sim=1 session_id_start=0 code_version=5ba334088a94bf45cb096698e3d622396c5e7b75
+2026-11-08 11:59:48,438 __main__ INFO block session=0 period=1000000 delta_c=0.1834 flip_share=0.400 n_onpath=55
+2026-11-08 11:59:48,440 __main__ INFO training session=0 sigma_u=1 period=1000000 unchanged=0
+2026-11-08 12:00:08,108 __main__ INFO block session=0 period=2000000 delta_c=0.0868 flip_share=0.400 n_onpath=55
+2026-11-08 12:00:08,108 __main__ INFO training session=0 sigma_u=1 period=2000000 unchanged=0
+2026-11-08 12:00:28,320 __main__ INFO block session=0 period=3000000 delta_c=0.0668 flip_share=0.378 n_onpath=45
+2026-11-08 12:00:28,320 __main__ INFO training session=0 sigma_u=1 period=3000000 unchanged=2
+2026-11-08 12:00:48,663 __main__ INFO block session=0 period=4000000 delta_c=0.0810 flip_share=0.257 n_onpath=35
+2026-11-08 12:00:48,663 __main__ INFO training session=0 sigma_u=1 period=4000000 unchanged=43
+2026-11-08 12:01:10,113 __main__ INFO block session=0 period=5000000 delta_c=0.0883 flip_share=0.057 n_onpath=35
+2026-11-08 12:01:10,113 __main__ INFO training session=0 sigma_u=1 period=5000000 unchanged=17
+2026-11-08 12:01:32,013 __main__ INFO block session=0 period=6000000 delta_c=0.0854 flip_share=0.057 n_onpath=35
+2026-11-08 12:01:32,014 __main__ INFO training session=0 sigma_u=1 period=6000000 unchanged=36
+2026-11-08 12:01:53,678 __main__ INFO block session=0 period=7000000 delta_c=0.0762 flip_share=0.071 n_onpath=35
+2026-11-08 12:01:53,678 __main__ INFO training session=0 sigma_u=1 period=7000000 unchanged=107
+2026-11-08 12:02:15,700 __main__ INFO block session=0 period=8000000 delta_c=0.0752 flip_share=0.014 n_onpath=35
+2026-11-08 12:02:15,700 __main__ INFO training session=0 sigma_u=1 period=8000000 unchanged=205
+2026-11-08 12:02:37,757 __main__ INFO block session=0 period=9000000 delta_c=0.0839 flip_share=0.043 n_onpath=35
+2026-11-08 12:02:37,757 __main__ INFO training session=0 sigma_u=1 period=9000000 unchanged=71
+2026-11-08 12:02:59,854 __main__ INFO block session=0 period=10000000 delta_c=0.0814 flip_share=0.014 n_onpath=35
+2026-11-08 12:02:59,855 __main__ INFO training session=0 sigma_u=1 period=10000000 unchanged=1
+2026-11-08 12:03:21,934 __main__ INFO block session=0 period=11000000 delta_c=0.0821 flip_share=0.014 n_onpath=35
+2026-11-08 12:03:21,935 __main__ INFO training session=0 sigma_u=1 period=11000000 unchanged=741
+2026-11-08 12:03:27,513 __main__ INFO saved Q-tables session=0 to ./results/br_ac/s0/qtables/session_000
+2026-11-08 12:03:27,513 __main__ INFO eval start session=0 sigma_u=1 periods=100000 greedy=True
+2026-11-08 12:03:28,725 __main__ INFO session done sigma_u=1 session=0 converged=True periods=11259000 delta_c=0.0824 delta_c_expected=0.0903 periods/s=47357
+2026-11-08 12:03:28,863 __main__ INFO wrote ./results/br_ac/s0/sessions.parquet (1 rows)
+2026-11-08 12:03:28,896 __main__ INFO wrote ./results/br_ac/s0/periods.parquet (10000 rows)
+2026-11-08 12:03:28,898 __main__ INFO wrote ./results/br_ac/s0/trajectory.parquet (11 rows)

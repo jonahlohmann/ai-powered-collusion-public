@@ -1,0 +1,68 @@
+# R1.7: reference run with DGJ's value grid and exploration decay. It is
+# config_r1_baseline.yaml with params ../shared/params_ref_grid.yaml (n_v 10, beta 5e-7),
+# n_sim 8 and a cap of 400M periods. Purpose: DGJ's value grid and exploration decay on 8
+# sessions, to check the scaling argument behind the baseline specification's beta = 1e-6 at
+# n_v = 5 (the same number of random draws per state-action cell;
+# outputs/tables/tab_sensitivity.tex). Everything else is identical to config_r1_baseline.yaml.
+#
+# Run, one session per call (i = 0 to 7; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/01_replicate_baseline/config_r1_7_ref_grid.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r1_7_ref_grid/s<i>
+# Names recorded at run time in the metadata and logs under results/r1_7_ref_grid/:
+# experiment "paper_exact", config_paper_exact.yaml.
+
+experiment:
+  name: r1_7_ref_grid
+  description: 'R1.7: value grid of DGJ, n_v 10, and beta 5e-7, 8 sessions, cap 400M'
+params: ../shared/params_ref_grid.yaml
+agents:
+- type: qlearner
+- type: qlearner
+sweep:
+  sigma_u:
+  - 1.0
+simulation:
+  n_sim: 8
+  convergence_periods: 1000000
+  max_periods: 400000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.1
+    trajectory_eval_periods: 20000
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: price_bins
+    magnitudes:
+    - 0.125
+    - 0.25
+    - 0.5
+  deviation:
+    enabled: true
+    bins:
+    - 4
+    - 8
+    agents:
+    - 0
+    - 1
+runner:
+  log_every: 1000000
+output:
+  directory: results/r1_7_ref_grid
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: raw
+  market_maker: rolling_ols

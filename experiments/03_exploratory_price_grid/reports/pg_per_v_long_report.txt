@@ -1,0 +1,110 @@
+
+################ σ_u = 0.1 ################
+=== SUMMARY ===
+Sessions: 1 | converged: 1 | non-converged: 0
+Δ^C per-path benchmarks (paper OA eq. IA.4.1):
+--- ALL sessions: n=1 ---
+    Δ^C: mean=+0.3942  median=+0.3942  sd=0.0000  min=+0.3942  max=+0.3942
+    bootstrap 95% CI of the mean: [+nan, +nan]
+    share with Δ^C > 0: 100.0%  |  mean |Δ^C_0 − Δ^C_1|: 0.0455
+--- converged sessions: n=1 ---
+    Δ^C: mean=+0.3942  median=+0.3942  sd=0.0000  min=+0.3942  max=+0.3942
+    bootstrap 95% CI of the mean: [+nan, +nan]
+    share with Δ^C > 0: 100.0%  |  mean |Δ^C_0 − Δ^C_1|: 0.0455
+--- settled (flip share over non-degenerate on-path states <= 0.10): n=1 ---
+    Δ^C: mean=+0.3942  median=+0.3942  sd=0.0000  min=+0.3942  max=+0.3942
+    bootstrap 95% CI of the mean: [+nan, +nan]
+    share with Δ^C > 0: 100.0%  |  mean |Δ^C_0 − Δ^C_1|: 0.0455
+Grid Nash equilibrium: Δ^C = -0.029; best symmetric grid outcome: Δ^C = +1.000
+Δ^C (expected-value benchmarks, pre-Phase-0 definition, all sessions): mean=+0.3887  median=+0.3887  std=0.0000  min=+0.3887  max=+0.3887  IQR=[+0.3887, +0.3887]
+χ̂ (all sessions): mean=155.73 std=0.00  (χ^N=166.67, χ^M=125.00)
+λ̂ (all sessions): mean=0.002000  (λ^N=0.002000)
+Profit per agent (all sessions): mean=44.678  (π^N=42.608, π^M=47.934, mean π^N on path=42.580)
+Profit gain vs Nash (Σπ / Σπ^N_path, all sessions): mean=1.0493
+Convergence period (converged sessions): mean=580.74M median=580.74M min=580.74M max=580.74M
+Throughput: mean=26,975 periods/s | total wall-clock=5.98 h
+Code version(s): ['unknown']
+
+=== PER-SESSION TABLE ===
+sess source     conv settled   flip      period      Δ^C  Δ^C_exp      χ̂  prof_0  prof_1
+-----------------------------------------------------------------------------------------
+   1 s1         yes  yes      0.003 580,744,000  +0.3942  +0.3887  155.73   44.80   44.56
+
+=== Δ^C DISTRIBUTION (per-path, converged sessions) ===
+All Δ^C ≈ +0.3942
+
+=== NOISE-SHOCK IRF (shock − counterfactual, sign-adjusted, normalised) ===
+
+Shock 0.125 price bins: bin-flip rate at t=3: 97.0% | post-shock state never visited (t=4): 0.0%
+    t    price %     OF_0 %     OF_1 %
+    3    +1.9001    +0.0000    +0.0000
+    4    +2.3300    -0.2585    +4.9279
+    5    -0.7538    +0.5171    -2.0293
+    6    +1.0210    +0.5760    +1.4677
+    7    -0.3006    -0.4563    -0.1444
+    8    +0.4061    -0.0351    +0.8489
+  Classification at t=4 (per session, mean over trials): {'price_trigger': 0, 'no_response': 0, 'ambiguous': 1}
+  Visited post-shock states only (100/100 trials, 1 session(s)): t=4 OF_0 -0.2585% OF_1 +4.9279% | classification: {'price_trigger': 0, 'no_response': 0, 'ambiguous': 1}
+
+Shock 0.25 price bins: bin-flip rate at t=3: 100.0% | post-shock state never visited (t=4): 0.0%
+    t    price %     OF_0 %     OF_1 %
+    3    +3.8001    +0.0000    +0.0000
+    4    +2.0570    +1.6932    +2.4221
+    5    -0.4301    +0.9861    -1.8514
+    6    +0.0980    +0.7813    -0.5877
+    7    -0.4578    -1.0174    +0.1038
+    8    -0.1202    +0.5189    -0.7616
+  Classification at t=4 (per session, mean over trials): {'price_trigger': 1, 'no_response': 0, 'ambiguous': 0}
+  Visited post-shock states only (100/100 trials, 1 session(s)): t=4 OF_0 +1.6932% OF_1 +2.4221% | classification: {'price_trigger': 1, 'no_response': 0, 'ambiguous': 0}
+
+Shock 0.5 price bins: bin-flip rate at t=3: 99.0% | post-shock state never visited (t=4): 0.0%
+    t    price %     OF_0 %     OF_1 %
+    3    +7.6003    +0.0000    +0.0000
+    4    +1.7491    -1.4625    +4.9723
+    5    -0.8039    -1.6013    -0.0037
+    6    +1.0905    +1.1173    +1.0637
+    7    -1.1553    -0.8144    -1.4974
+    8    +1.2543    +1.2890    +1.2196
+  Classification at t=4 (per session, mean over trials): {'price_trigger': 0, 'no_response': 0, 'ambiguous': 1}
+  Visited post-shock states only (100/100 trials, 1 session(s)): t=4 OF_0 -1.4625% OF_1 +4.9723% | classification: {'price_trigger': 0, 'no_response': 0, 'ambiguous': 1}
+
+=== UNILATERAL-DEVIATION IRF (shock − counterfactual) ===
+
+Agent 0 deviates by 4 bin(s): effective in 89/100 trials (others clipped at the grid edge; excluded below)
+    t   dev OF %  dev prof %  other OF %  other prof %
+    3    +9.4119     +1.2152     +0.0000       -7.8942
+    4    +0.2261     -4.2402     +5.0851       +0.9304
+    5    +1.2593     -0.3699     +1.7680       -0.5524
+  Sessions where the non-deviator punishes (mean OF dev > 5e-04 at t=4): 1/1
+  Visited post-deviation states only (89/89 trials): other OF +5.0851% at t=4 | sessions where the non-deviator punishes: 1/1
+
+Agent 1 deviates by 4 bin(s): effective in 92/100 trials (others clipped at the grid edge; excluded below)
+    t   dev OF %  dev prof %  other OF %  other prof %
+    3    +7.7782     +0.8622     +0.0000       -6.0184
+    4    +1.7928     -1.2512     +1.0595       -1.0438
+    5    +1.8352     +0.2606     +0.6443       -0.9977
+  Sessions where the non-deviator punishes (mean OF dev > 5e-04 at t=4): 1/1
+  Visited post-deviation states only (92/92 trials): other OF +1.0595% at t=4 | sessions where the non-deviator punishes: 1/1
+
+Agent 0 deviates by 8 bin(s): effective in 87/100 trials (others clipped at the grid edge; excluded below)
+    t   dev OF %  dev prof %  other OF %  other prof %
+    3   +12.0143     +1.6709     +0.0000       -9.3976
+    4    +3.1582     -1.0314     +1.9575       -2.8057
+    5    +1.0230     -0.7209     +1.4786       -1.1372
+  Sessions where the non-deviator punishes (mean OF dev > 5e-04 at t=4): 1/1
+  Visited post-deviation states only (87/87 trials): other OF +1.9575% at t=4 | sessions where the non-deviator punishes: 1/1
+
+Agent 1 deviates by 8 bin(s): effective in 98/100 trials (others clipped at the grid edge; excluded below)
+    t   dev OF %  dev prof %  other OF %  other prof %
+    3   +10.9065     +1.8384     +0.0000       -8.4595
+    4    +3.1863     +0.8321     -0.5034       -2.8875
+    5    +1.2123     -0.3297     +0.4333       -0.6480
+  Sessions where the non-deviator punishes (mean OF dev > 5e-04 at t=4): 0/1
+  Visited post-deviation states only (98/98 trials): other OF -0.5034% at t=4 | sessions where the non-deviator punishes: 0/1
+
+=== NOTES ===
+Classification thresholds (paper OA §4.5): no response if |dev| < 5e-05 for both agents; price trigger if dev > 5e-04 for both agents.
+Deviations are shock-path minus counterfactual-path at the same period,
+normalised by the session's eval-window mean (sign-adjusted).
+Results dir: results/pg_per_v_long
+Config: experiments/01_replicate_baseline/config_pg_per_v_long.yaml

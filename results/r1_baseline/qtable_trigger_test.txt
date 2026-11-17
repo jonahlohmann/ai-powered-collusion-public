@@ -1,0 +1,50 @@
+Q-table trigger test | 30 session(s) | results ./results/m2
+Deviation cell = lagged-price bin one step further from the centre in the direction of v_prev.
+punish: |x| larger in the deviation cell; same: equal; forgive: smaller. Shares weighted by eval visits.
+
+On-path cells with a deviation cell: 2332 | deviation cell untouched (initial table row, never visited in training): 840 (36.0%); headline shares use the 1492 touched cells.
+Deviation cells that are themselves on-path (training visits known from the eval rows): 1334; of these fewer than 100 training visits: 0.
+
+=== HEADLINE (touched deviation cells only) ===
+group             cells  punish    same  forgive  mean Δχ
+all agents         1492   0.477   0.102    0.420   +0.988
+type qlearner      1492   0.477   0.102    0.420   +0.988
+
+=== UNTOUCHED DEVIATION CELLS (initial row; not learned) ===
+all agents          840   0.842   0.158    0.000
+
+=== PER SESSION (touched cells; punish share per agent) ===
+sess  agent 0  agent 1  both>0.5
+   0    0.310    0.541  no
+   1    0.511    0.525  yes
+   2    0.563    0.522  yes
+   3    0.667    0.265  no
+   4    0.464    0.375  no
+   5    0.563    0.389  no
+   6    0.798    0.385  no
+   7    0.542    0.314  no
+   8    0.437    0.552  no
+   9    0.615    0.386  no
+  10    0.425    0.665  no
+  11    0.515    0.538  yes
+  12    0.467    0.361  no
+  13    0.561    0.246  no
+  14    0.452    0.493  no
+  15    0.428    0.604  no
+  16    0.362    0.620  no
+  17    0.498    0.420  no
+  18    0.230    0.369  no
+  19    0.419    0.399  no
+  20    0.413    0.360  no
+  21    0.247    0.634  no
+  22    0.480    0.574  no
+  23    0.585    0.532  yes
+  24    0.602    0.251  no
+  25    0.559    0.692  yes
+  26    0.602    0.409  no
+  27    0.460    0.469  no
+  28    0.631    0.324  no
+  29    0.695    0.339  no
+Sessions in which both agents punish in more than half of the (visit-weighted) cells: 5/30
+
+Config: ./experiments/01_replicate_baseline/config_m2.yaml

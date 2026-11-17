@@ -1,0 +1,63 @@
+Best-response deviation test | 30 session(s) | trials 500 | horizon 60
+=== 1. STATIC INCENTIVES (eval play, v ≠ v̄) ===
+ |v−v̄|  BR share  gain grid  gain cont  grid/cont   profit
+  0.524     0.435      1.206      1.335      0.903    15.15
+  1.282     0.574      0.763      0.911      0.838    94.26
+Pooled: BR share 0.504 | grid gain 0.984 | continuous gain 1.122 | grid keeps 87.7% of the deviation gain
+Grid one-shot gain per period (all v) / (π^M − π^N): 0.148
+
+=== 2. DYNAMIC TEST (frozen policies, horizon 60, ρ = 0.95, CRN) ===
+gain0 = deviation period; cont = discounted continuation; total = gain0 + cont.
+opp react = opponent's action changes at t+1; aggr = share of those that are more aggressive.
+kind     |v−v̄|     n   gain0    cont   total P(tot>0) opp react  aggr untouched
+grid_br   0.524 17298   +2.09   -0.17   +1.92     0.83      0.33  0.43      0.00
+grid_br   1.282 12702   +1.74   -2.07   -0.33     0.62      0.59  0.48      0.00
+one_up    0.524 21285   -1.06   -0.43   -1.49     0.44      0.37  0.41      0.00
+one_up    1.282  8715   +1.74   -2.26   -0.52     0.62      0.59  0.48      0.00
+Grid-BR deviation, total gain: mean over sessions +0.968 [bootstrap 95% CI +0.586, +1.314]
+Sessions: pays (mean − 2 SE > 0) 23/30 | does not pay (mean + 2 SE < 0) 3/30 | unclear 4/30 | point estimate > 0 27/30
+
+=== 3. VALUE STALENESS (stored Q − one-step Bellman target, own Q-table) ===
+kind     |v−v̄| err greedy  err dev   Q gap  P(refreshed dev > greedy)
+grid_br   0.524      +0.22   -27.33  -25.81                       0.79
+grid_br   1.282      -0.11   -23.36  -23.73                       0.51
+one_up    0.524      -0.28   -24.47  -25.44                       0.44
+one_up    1.282      +0.21   -23.55  -24.02                       0.51
+Reading: err dev ≪ err greedy ≈ 0 means the agent's value of the deviation is outdated
+(it is not refreshed because the action is no longer explored), not that it is punished.
+
+=== PER SESSION (grid-BR deviation, mean over agents and trials) ===
+sess   gain0    cont   total     SE
+   0   +2.00   +0.01   +2.01   0.23
+   1   +2.74   -1.29   +1.45   0.31
+   2   +2.05   -1.93   +0.12   0.37
+   3   +3.25   -1.83   +1.42   0.32
+   4   +1.98   -0.57   +1.41   0.28
+   5   +2.18   -0.99   +1.19   0.28
+   6   +2.13   -4.07   -1.94   0.53
+   7   +1.04   -0.68   +0.35   0.24
+   8   +2.30   +0.17   +2.47   0.28
+   9   +1.64   +0.71   +2.35   0.21
+  10   +1.82   -1.03   +0.79   0.25
+  11   +1.77   -0.77   +1.00   0.28
+  12   +2.60   -0.76   +1.84   0.29
+  13   +1.22   -0.06   +1.16   0.17
+  14   +1.66   +0.06   +1.72   0.27
+  15   +2.19   -4.13   -1.94   0.45
+  16   +1.64   -0.78   +0.87   0.22
+  17   +1.44   -0.03   +1.41   0.19
+  18   +2.38   -1.16   +1.22   0.39
+  19   +1.86   -0.99   +0.87   0.21
+  20   +1.38   -0.13   +1.25   0.18
+  21   +2.17   -1.28   +0.88   0.23
+  22   +1.81   -1.73   +0.08   0.49
+  23   +2.13   -1.13   +1.00   0.24
+  24   +1.83   +0.08   +1.90   0.26
+  25   +1.71   -0.57   +1.14   0.19
+  26   +1.83   -0.06   +1.77   0.24
+  27   +1.48   -1.42   +0.06   0.18
+  28   +1.36   -1.98   -0.62   0.23
+  29   +2.67   -0.87   +1.79   0.31
+
+Results dir: ./results/m1_long
+Config: ./experiments/01_replicate_baseline/config_m1_long.yaml

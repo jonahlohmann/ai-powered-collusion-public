@@ -1,0 +1,25 @@
+# Parameter set of the reference run R1.7: params_baseline.yaml (the baseline specification)
+# with n_v 10 (DGJ's value; the baseline specification uses 5), beta 5e-7 (DGJ's value; the
+# baseline specification uses 1e-6, which gives the same 430 random draws per state-action cell
+# at n_v = 5) and a cap of 400M periods. The run checks this scaling argument directly.
+# Everything else is the baseline specification.
+
+n_agents: 2
+xi: 500
+sigma_u: 0.1
+rho: 0.95
+theta: 0.1
+n_v: 10
+n_x: 15
+n_p: 31
+T_m: 10000
+iota: 0.1
+action_grid: per_v
+exploration_counter: v
+q_init: paper
+alpha: 0.01
+beta: 5.0e-07
+convergence_periods: 1000000
+max_periods: 400000000
+reward_price: raw
+market_maker: rolling_ols

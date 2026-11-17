@@ -1,0 +1,65 @@
+# Exploratory run, outside the 12 runs of the thesis. See README.md in this folder.
+# This is config_pg_per_v.yaml with a cap of 1 billion periods instead of 100 million and ONE
+# session. Run with --session-id-start 1 (seed 43): of the first four sessions of pg_per_v,
+# session 1 began to fall earliest (from 60 million periods) and reached the lowest block
+# (0.28 at 87 million). Question: does the collusion capacity turn upward after the fall, as
+# Dou et al. (2025, pp. 37-38) describe? Its first 100 million periods repeat session 1 of
+# pg_per_v exactly (same seed, same code).
+# Only these comment lines and the first words of the description differ from the file the
+# run was started with.
+
+experiment:
+  name: "pg_per_v_long"
+  description: "Exploratory run: R1.8 (baseline specification, sigma_u = 0.1) with a price grid per value (DGJ, footnote 25)"
+
+params: "../shared/params_baseline.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "qlearner"
+
+sweep:
+  sigma_u: [0.1]
+
+simulation:
+  n_sim: 1
+  convergence_periods: 1000000
+  max_periods: 1000000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: "price_bins"
+    magnitudes: [0.125, 0.25, 0.5]
+  deviation:
+    enabled: true
+    bins: [4, 8]
+    agents: [0, 1]
+
+runner:
+  log_every: 1000000
+
+output:
+  directory: "results/pg_per_v_long"
+
+overrides:
+  sigma_u: 0.1
+  save_qtables: true
+  reward_price: "raw"
+  market_maker: "rolling_ols"
+  price_grid: "per_v"

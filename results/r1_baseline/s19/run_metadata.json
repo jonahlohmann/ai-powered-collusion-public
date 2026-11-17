@@ -1,0 +1,109 @@
+{
+  "config_path": "./experiments/01_replicate_baseline/config_m2.yaml",
+  "experiment_name": "m2",
+  "code_version": "f3c2b67f89997ec2ed3c95f937bf8fe1aab18625",
+  "started_utc": "2026-11-06T17:29:00.819825+00:00",
+  "finished_utc": "2026-11-06T17:45:19.200217+00:00",
+  "session_id_start": 19,
+  "n_sim": 1,
+  "output_dir": "./results/m2/s19",
+  "sweep_sigma_u": [
+    1.0
+  ],
+  "python": "3.13.7 (main, Aug 14 2025, 11:12:11) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "numpy": "2.4.4",
+  "cli_overrides": {
+    "session_id_start": 19,
+    "n_sim": 1,
+    "output_dir": "results/m2/s19",
+    "max_periods": null
+  },
+  "resolved_config": {
+    "n_agents": 2,
+    "xi": 500,
+    "sigma_u": 1.0,
+    "rho": 0.95,
+    "theta": 0.1,
+    "n_v": 5,
+    "n_x": 15,
+    "n_p": 31,
+    "T_m": 10000,
+    "iota": 0.1,
+    "action_grid": "per_v",
+    "exploration_counter": "v",
+    "q_init": "paper",
+    "alpha": 0.01,
+    "beta": 1e-06,
+    "convergence_periods": 1000000,
+    "max_periods": 100000000,
+    "reward_price": "raw",
+    "market_maker": "rolling_ols",
+    "experiment": {
+      "name": "m2",
+      "description": "M2 (paper-style specification at n_v = 5): per-v action grid, per-v exploration counter, paper Q-init, beta 1e-6, 1M convergence window, 100M cap, training diagnostics"
+    },
+    "agents": [
+      {
+        "type": "qlearner"
+      },
+      {
+        "type": "qlearner"
+      }
+    ],
+    "sweep": {
+      "sigma_u": [
+        1.0
+      ]
+    },
+    "simulation": {
+      "n_sim": 1,
+      "convergence_periods": 1000000,
+      "max_periods": 100000000,
+      "eval_periods": 100000,
+      "save_eval_periods": 10000,
+      "eval_greedy": true,
+      "check_every": 1000,
+      "seed_base": 42,
+      "session_id_start": 19,
+      "diagnostics": {
+        "enabled": true,
+        "block_periods": 1000000,
+        "onpath_min_share": 0.001,
+        "settled_max_flip_share": 0.1,
+        "trajectory_eval_periods": 20000
+      }
+    },
+    "irf": {
+      "enabled": true,
+      "pre_periods": 3,
+      "post_periods": 6,
+      "n_trials": 100,
+      "noise": {
+        "units": "price_bins",
+        "magnitudes": [
+          0.125,
+          0.25,
+          0.5
+        ]
+      },
+      "deviation": {
+        "enabled": true,
+        "bins": [
+          4,
+          8
+        ],
+        "agents": [
+          0,
+          1
+        ]
+      }
+    },
+    "runner": {
+      "log_every": 1000000
+    },
+    "output": {
+      "directory": "results/m2/s19"
+    },
+    "save_qtables": true
+  }
+}

@@ -1,0 +1,81 @@
+# R1, the baseline: two Q-learners under the baseline specification
+# (../shared/params_baseline.yaml). The baseline specification follows DGJ's description at
+# n_v = 5: an action grid per value, an exploration counter per value (Dou et al., 2025,
+# eq. 4.3), DGJ's Q-initialisation (Section 4.2), beta = 1e-6, DGJ's convergence window of 1M
+# periods, a cap of 100M periods and training diagnostics (stability diagnostic per 1M block,
+# Δ^C learning curve in trajectory.parquet).
+#
+# Differences from config_r1_2_earlier_spec.yaml: the parameter file, the cap (100M instead of
+# 40M), the noise-shock magnitudes and trial count, the deviation bins (4 and 8 levels of the
+# trading intensity; on the per-v grid a deviation moves towards a higher intensity at every
+# v) and log_every.
+#
+# Noise shocks of the impulse responses: 0.125, 0.25 and 0.5 price bins, 100 trials (n_trials
+# applies to the noise and the deviation IRF alike). Reason for these sizes: on the per-v grid
+# the lagged price bin is pinned down by v_{t-1} (reachable bins 2-6, 10-11, 15, 19-20,
+# 24-28), so shocks of 1 and 2 bins mostly lead to states that training never visits, where
+# the agents play the argmax of DGJ's Q-initialisation (level 14). DGJ size the shock to a
+# 1.2% price move (Online Appendix 4.5): about 0.11 bin at |v - v_bar| = 1.28 and 0.05 bin at
+# 0.52.
+#
+# Run, one session per call (i = 0 to 29; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/01_replicate_baseline/config_r1_baseline.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r1_baseline/s<i>
+# Names recorded at run time in the metadata and logs under results/r1_baseline/:
+# experiment "m2", config_m2.yaml.
+
+experiment:
+  name: "r1_baseline"
+  description: "R1, the baseline: baseline specification (paper-style specification at n_v = 5): per-v action grid, per-v exploration counter, paper Q-init, beta 1e-6, 1M convergence window, 100M cap, training diagnostics"
+
+params: "../shared/params_baseline.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "qlearner"
+
+sweep:
+  sigma_u: [1.0]
+
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 100000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: "price_bins"
+    magnitudes: [0.125, 0.25, 0.5]
+  deviation:
+    enabled: true
+    bins: [4, 8]
+    agents: [0, 1]
+
+runner:
+  log_every: 1000000
+
+output:
+  directory: "results/r1_baseline"
+
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: "raw"
+  market_maker: "rolling_ols"

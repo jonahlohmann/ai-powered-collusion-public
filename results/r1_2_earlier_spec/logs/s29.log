@@ -1,0 +1,39 @@
+2026-11-05 17:52:11,918 __main__ INFO experiment start config=./experiments/01_replicate_baseline/config_m1_long.yaml sweep_size=1 n_sim=1 session_id_start=29 code_version=07fe8d1c144fe29466ed7cb0acb5d5732039f548
+2026-11-05 17:52:25,786 __main__ INFO training session=29 sigma_u=1 period=500000 unchanged=1
+2026-11-05 17:52:39,957 __main__ INFO block session=29 period=1000000 delta_c=-0.4099 flip_share=0.969 n_onpath=385
+2026-11-05 17:52:39,959 __main__ INFO training session=29 sigma_u=1 period=1000000 unchanged=0
+2026-11-05 17:52:53,751 __main__ INFO training session=29 sigma_u=1 period=1500000 unchanged=0
+2026-11-05 17:53:07,945 __main__ INFO block session=29 period=2000000 delta_c=-0.1578 flip_share=0.963 n_onpath=215
+2026-11-05 17:53:07,946 __main__ INFO training session=29 sigma_u=1 period=2000000 unchanged=0
+2026-11-05 17:53:21,920 __main__ INFO training session=29 sigma_u=1 period=2500000 unchanged=0
+2026-11-05 17:53:36,118 __main__ INFO block session=29 period=3000000 delta_c=-0.5737 flip_share=0.670 n_onpath=235
+2026-11-05 17:53:36,119 __main__ INFO training session=29 sigma_u=1 period=3000000 unchanged=0
+2026-11-05 17:53:51,247 __main__ INFO training session=29 sigma_u=1 period=3500000 unchanged=0
+2026-11-05 17:54:06,281 __main__ INFO block session=29 period=4000000 delta_c=-0.4374 flip_share=0.500 n_onpath=248
+2026-11-05 17:54:06,282 __main__ INFO training session=29 sigma_u=1 period=4000000 unchanged=0
+2026-11-05 17:54:20,798 __main__ INFO training session=29 sigma_u=1 period=4500000 unchanged=0
+2026-11-05 17:54:35,500 __main__ INFO block session=29 period=5000000 delta_c=-0.0195 flip_share=1.000 n_onpath=205
+2026-11-05 17:54:35,500 __main__ INFO training session=29 sigma_u=1 period=5000000 unchanged=0
+2026-11-05 17:54:49,787 __main__ INFO training session=29 sigma_u=1 period=5500000 unchanged=0
+2026-11-05 17:55:03,547 __main__ INFO block session=29 period=6000000 delta_c=-0.1591 flip_share=0.500 n_onpath=197
+2026-11-05 17:55:03,548 __main__ INFO training session=29 sigma_u=1 period=6000000 unchanged=0
+2026-11-05 17:55:16,557 __main__ INFO training session=29 sigma_u=1 period=6500000 unchanged=90
+2026-11-05 17:55:29,387 __main__ INFO block session=29 period=7000000 delta_c=0.4375 flip_share=0.500 n_onpath=67
+2026-11-05 17:55:29,388 __main__ INFO training session=29 sigma_u=1 period=7000000 unchanged=96
+2026-11-05 17:55:41,827 __main__ INFO training session=29 sigma_u=1 period=7500000 unchanged=317
+2026-11-05 17:55:54,521 __main__ INFO block session=29 period=8000000 delta_c=0.4420 flip_share=0.045 n_onpath=55
+2026-11-05 17:55:54,521 __main__ INFO training session=29 sigma_u=1 period=8000000 unchanged=204
+2026-11-05 17:56:06,807 __main__ INFO training session=29 sigma_u=1 period=8500000 unchanged=704
+2026-11-05 17:56:19,220 __main__ INFO block session=29 period=9000000 delta_c=0.4550 flip_share=0.082 n_onpath=55
+2026-11-05 17:56:19,220 __main__ INFO training session=29 sigma_u=1 period=9000000 unchanged=96
+2026-11-05 17:56:31,277 __main__ INFO training session=29 sigma_u=1 period=9500000 unchanged=32
+2026-11-05 17:56:43,748 __main__ INFO block session=29 period=10000000 delta_c=0.4556 flip_share=0.058 n_onpath=60
+2026-11-05 17:56:43,748 __main__ INFO training session=29 sigma_u=1 period=10000000 unchanged=389
+2026-11-05 17:56:55,909 __main__ INFO training session=29 sigma_u=1 period=10500000 unchanged=889
+2026-11-05 17:56:58,613 __main__ INFO saved Q-tables session=29 to ./results/m1_long/s29/qtables/session_029
+2026-11-05 17:56:58,613 __main__ INFO eval start session=29 sigma_u=1 periods=100000 greedy=True
+2026-11-05 17:57:00,024 __main__ INFO irf start session=29 sigma_u=1
+2026-11-05 17:57:00,230 __main__ INFO session done sigma_u=1 session=29 converged=True periods=10611000 delta_c=0.4541 delta_c_expected=0.4530 periods/s=37012
+2026-11-05 17:57:00,282 __main__ INFO wrote ./results/m1_long/s29/sessions.parquet (1 rows)
+2026-11-05 17:57:00,325 __main__ INFO wrote ./results/m1_long/s29/periods.parquet (11920 rows)
+2026-11-05 17:57:00,327 __main__ INFO wrote ./results/m1_long/s29/trajectory.parquet (10 rows)

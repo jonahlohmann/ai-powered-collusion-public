@@ -1,0 +1,99 @@
+{
+  "config_path": "/home/runner/work/ai-trading-collusion/ai-trading-collusion/experiments/01_replicate_baseline/config_phase0.yaml",
+  "experiment_name": "phase0_baseline",
+  "code_version": "80a9762c2ad4f24294ef9302b00dd82df3c15ea7",
+  "started_utc": "2026-11-04T23:46:08.926956+00:00",
+  "finished_utc": "2026-11-04T23:49:21.426427+00:00",
+  "session_id_start": 11,
+  "n_sim": 1,
+  "output_dir": "/home/runner/work/ai-trading-collusion/ai-trading-collusion/results/production_phase0/s11",
+  "sweep_sigma_u": [
+    1.0
+  ],
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy": "2.4.4",
+  "cli_overrides": {
+    "session_id_start": 11,
+    "n_sim": 1,
+    "output_dir": "results/production_phase0/s11"
+  },
+  "resolved_config": {
+    "n_agents": 2,
+    "xi": 500,
+    "sigma_u": 1.0,
+    "rho": 0.95,
+    "theta": 0.1,
+    "n_v": 5,
+    "n_x": 15,
+    "n_p": 31,
+    "T_m": 10000,
+    "iota": 0.1,
+    "alpha": 0.01,
+    "beta": 0.0005,
+    "convergence_periods": 100000,
+    "max_periods": 10000000,
+    "reward_price": "raw",
+    "market_maker": "rolling_ols",
+    "experiment": {
+      "name": "phase0_baseline",
+      "description": "30-session homogeneous QQ baseline on the corrected Phase 0 pipeline, sigma_u=1.0."
+    },
+    "agents": [
+      {
+        "type": "qlearner"
+      },
+      {
+        "type": "qlearner"
+      }
+    ],
+    "sweep": {
+      "sigma_u": [
+        1.0
+      ]
+    },
+    "simulation": {
+      "n_sim": 1,
+      "convergence_periods": 100000,
+      "max_periods": 10000000,
+      "eval_periods": 100000,
+      "save_eval_periods": 10000,
+      "eval_greedy": true,
+      "check_every": 1000,
+      "seed_base": 42,
+      "session_id_start": 11
+    },
+    "irf": {
+      "enabled": true,
+      "pre_periods": 3,
+      "post_periods": 6,
+      "n_trials": 20,
+      "noise": {
+        "units": "price_bins",
+        "magnitudes": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ]
+      },
+      "deviation": {
+        "enabled": true,
+        "bins": [
+          1,
+          2
+        ],
+        "agents": [
+          0,
+          1
+        ]
+      }
+    },
+    "runner": {
+      "log_every": 500000
+    },
+    "output": {
+      "directory": "results/production_phase0/s11"
+    },
+    "save_qtables": true
+  }
+}

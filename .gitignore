@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environment (anchored: src/ai_trading/env/ is a source package)
+/.venv/
+
+# Editors and operating system
+.vscode/
+.idea/
+.DS_Store

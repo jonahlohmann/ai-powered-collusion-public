@@ -1,0 +1,73 @@
+# R1.2: the earlier specification with the long stopping rule. It is
+# config_r1_1_early_stop.yaml with DGJ's convergence window of 1M periods (Dou et al., 2025,
+# Section 4.2), a cap of 40M periods and training diagnostics: a stability diagnostic per 1M
+# block and a Δ^C learning curve (greedy policies evaluated for 20,000 periods on a deep copy
+# every 1M periods, written to trajectory.parquet). Everything else is identical to
+# config_r1_1_early_stop.yaml.
+#
+# Run all 30 sessions in one process:
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/01_replicate_baseline/config_r1_2_earlier_spec.yaml
+# Or one session per call (i = 0 to 29; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/01_replicate_baseline/config_r1_2_earlier_spec.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r1_2_earlier_spec/s<i>
+# Names recorded at run time in the metadata and logs under results/r1_2_earlier_spec/:
+# experiment "m1_long", config_m1_long.yaml.
+# "Phase 0 specification" in the description below is the working name of the earlier
+# specification.
+
+experiment:
+  name: "r1_2_earlier_spec"
+  description: "R1.2: earlier specification (Phase 0 specification) with the paper's 1M convergence window, 40M cap and training diagnostics"
+
+params: "../shared/params_earlier_spec.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "qlearner"
+
+sweep:
+  sigma_u: [1.0]
+
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 40000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 20
+  noise:
+    units: "price_bins"
+    magnitudes: [0.5, 1.0, 2.0, 4.0]
+  deviation:
+    enabled: true
+    bins: [1, 2]
+    agents: [0, 1]
+
+runner:
+  log_every: 500000
+
+output:
+  directory: "results/r1_2_earlier_spec"
+
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: "raw"
+  market_maker: "rolling_ols"

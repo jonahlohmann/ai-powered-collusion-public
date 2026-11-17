@@ -1,0 +1,107 @@
+{
+  "config_path": "./experiments/01_replicate_baseline/config_m1_long.yaml",
+  "experiment_name": "m1_long",
+  "code_version": "543d903555f8b8f4e9229a606f9295db65004c54",
+  "started_utc": "2026-11-05T16:15:58.583729+00:00",
+  "finished_utc": "2026-11-05T16:22:47.661900+00:00",
+  "session_id_start": 1,
+  "n_sim": 1,
+  "output_dir": "./results/m1_long/s1",
+  "sweep_sigma_u": [
+    1.0
+  ],
+  "python": "3.13.7 (main, Aug 14 2025, 11:12:11) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "numpy": "2.4.4",
+  "cli_overrides": {
+    "session_id_start": 1,
+    "n_sim": 1,
+    "output_dir": "results/m1_long/s1",
+    "max_periods": null
+  },
+  "resolved_config": {
+    "n_agents": 2,
+    "xi": 500,
+    "sigma_u": 1.0,
+    "rho": 0.95,
+    "theta": 0.1,
+    "n_v": 5,
+    "n_x": 15,
+    "n_p": 31,
+    "T_m": 10000,
+    "iota": 0.1,
+    "alpha": 0.01,
+    "beta": 0.0005,
+    "convergence_periods": 100000,
+    "max_periods": 10000000,
+    "reward_price": "raw",
+    "market_maker": "rolling_ols",
+    "experiment": {
+      "name": "m1_long",
+      "description": "M1 (Phase 0 specification) with the paper's 1M convergence window, 40M cap and training diagnostics"
+    },
+    "agents": [
+      {
+        "type": "qlearner"
+      },
+      {
+        "type": "qlearner"
+      }
+    ],
+    "sweep": {
+      "sigma_u": [
+        1.0
+      ]
+    },
+    "simulation": {
+      "n_sim": 1,
+      "convergence_periods": 1000000,
+      "max_periods": 40000000,
+      "eval_periods": 100000,
+      "save_eval_periods": 10000,
+      "eval_greedy": true,
+      "check_every": 1000,
+      "seed_base": 42,
+      "session_id_start": 1,
+      "diagnostics": {
+        "enabled": true,
+        "block_periods": 1000000,
+        "onpath_min_share": 0.001,
+        "settled_max_flip_share": 0.1,
+        "trajectory_eval_periods": 20000
+      }
+    },
+    "irf": {
+      "enabled": true,
+      "pre_periods": 3,
+      "post_periods": 6,
+      "n_trials": 20,
+      "noise": {
+        "units": "price_bins",
+        "magnitudes": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ]
+      },
+      "deviation": {
+        "enabled": true,
+        "bins": [
+          1,
+          2
+        ],
+        "agents": [
+          0,
+          1
+        ]
+      }
+    },
+    "runner": {
+      "log_every": 500000
+    },
+    "output": {
+      "directory": "results/m1_long/s1"
+    },
+    "save_qtables": true
+  }
+}

@@ -1,0 +1,75 @@
+# R1.8: reference run at DGJ's noise level. It is config_r1_baseline.yaml with ONE change:
+# sigma_u = 0.1 instead of 1.0 (sweep.sigma_u and overrides.sigma_u). Same seeds 42 + session
+# id, own output folder.
+#
+# Purpose: the noise level of 1.0 was chosen after a pre-check under a specification in which
+# rewards were paid on the rounded price. Under the baseline specification rewards are paid
+# on the exact price, so noise enters every reward and the pre-check does not carry over.
+# This run repeats the comparison under the baseline specification.
+#
+# What changes with sigma_u: the benchmarks are the same to seven digits (chi^N 166.67,
+# chi^M 125.00, lambda^N 0.002); the price grid follows DGJ's formula, which contains
+# 1.96 * sigma_u, so a bin is 0.0684 wide instead of 0.0687. The noise shocks of the impulse
+# responses are sized in price bins and stay as they are.
+#
+# Run, one session per call (i = 0 to 29; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/01_replicate_baseline/config_r1_8_ref_noise.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r1_8_ref_noise/s<i>
+# Names recorded at run time in the metadata and logs under results/r1_8_ref_noise/:
+# experiment "m2_sigma01", config_m2_sigma01.yaml.
+
+experiment:
+  name: "r1_8_ref_noise"
+  description: "R1.8: baseline specification at DGJ's noise level sigma_u = 0.1; everything else as config_r1_baseline.yaml"
+
+params: "../shared/params_baseline.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "qlearner"
+
+sweep:
+  sigma_u: [0.1]
+
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 100000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: "price_bins"
+    magnitudes: [0.125, 0.25, 0.5]
+  deviation:
+    enabled: true
+    bins: [4, 8]
+    agents: [0, 1]
+
+runner:
+  log_every: 1000000
+
+output:
+  directory: "results/r1_8_ref_noise"
+
+overrides:
+  sigma_u: 0.1
+  save_qtables: true
+  reward_price: "raw"
+  market_maker: "rolling_ols"

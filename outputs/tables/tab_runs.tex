@@ -1,0 +1,21 @@
+\begin{tabular}{llp{8.6cm}lr}
+\toprule
+Run & Population & Change against the baseline specification & Role & Sessions \\
+\midrule
+\multicolumn{5}{l}{H1: replication} \\
+R1 & Q–Q & The baseline: baseline specification & Result & 30 \\
+R1.1 & Q–Q & Earlier specification; training stops after 100,000 unchanged periods or at 10 million & Robustness & 30 \\
+R1.2 & Q–Q & Earlier specification: one grid of order sizes for all values & Robustness & 30 \\
+R1.3 & Q–Q & Reward paid on the price rounded to its bin & Robustness & 30 \\
+R1.4 & Q–Q & Lagged price removed from the state & Robustness & 30 \\
+R1.5 & Q–Q & Lagged price removed from the state; $\beta = 3\times10^{-6}$ & Robustness & 30 \\
+R1.6 & Q–Q & DGJ's exploration decay: $\beta = 5\times10^{-7}$ & Reference & 30 \\
+R1.7 & Q–Q & DGJ's value grid, $n_v = 10$, and exploration decay as in R1.6 & Reference & 8 \\
+R1.8 & Q–Q & DGJ's noise level: $\sigma_u = 0.1$ & Reference & 30 \\
+\midrule
+\multicolumn{5}{l}{H2: heterogeneity} \\
+R2 & Q–AC & One Q-learner replaced by an AC learner & Result & 30 \\
+R2.1 & AC–AC & Both Q-learners replaced by AC learners & Robustness & 30 \\
+R2.2 & Q–Q & Two Q-learners with learning rates $\alpha = 0.01$ and $0.1$ & Robustness & 30 \\
+\bottomrule
+\end{tabular}

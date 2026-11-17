@@ -1,0 +1,39 @@
+2026-11-05 17:22:49,885 __main__ INFO experiment start config=./experiments/01_replicate_baseline/config_m1_long.yaml sweep_size=1 n_sim=1 session_id_start=2 code_version=543d903555f8b8f4e9229a606f9295db65004c54
+2026-11-05 17:23:04,667 __main__ INFO training session=2 sigma_u=1 period=500000 unchanged=0
+2026-11-05 17:23:18,631 __main__ INFO block session=2 period=1000000 delta_c=-0.3235 flip_share=0.987 n_onpath=385
+2026-11-05 17:23:18,631 __main__ INFO training session=2 sigma_u=1 period=1000000 unchanged=0
+2026-11-05 17:23:33,137 __main__ INFO training session=2 sigma_u=1 period=1500000 unchanged=0
+2026-11-05 17:23:47,791 __main__ INFO block session=2 period=2000000 delta_c=-0.6153 flip_share=0.958 n_onpath=214
+2026-11-05 17:23:47,792 __main__ INFO training session=2 sigma_u=1 period=2000000 unchanged=0
+2026-11-05 17:24:01,141 __main__ INFO training session=2 sigma_u=1 period=2500000 unchanged=0
+2026-11-05 17:24:14,897 __main__ INFO block session=2 period=3000000 delta_c=-0.5717 flip_share=0.996 n_onpath=225
+2026-11-05 17:24:14,897 __main__ INFO training session=2 sigma_u=1 period=3000000 unchanged=0
+2026-11-05 17:24:28,859 __main__ INFO training session=2 sigma_u=1 period=3500000 unchanged=0
+2026-11-05 17:24:42,503 __main__ INFO block session=2 period=4000000 delta_c=-0.5169 flip_share=0.525 n_onpath=237
+2026-11-05 17:24:42,504 __main__ INFO training session=2 sigma_u=1 period=4000000 unchanged=0
+2026-11-05 17:24:55,633 __main__ INFO training session=2 sigma_u=1 period=4500000 unchanged=0
+2026-11-05 17:25:09,141 __main__ INFO block session=2 period=5000000 delta_c=-0.4633 flip_share=1.000 n_onpath=221
+2026-11-05 17:25:09,141 __main__ INFO training session=2 sigma_u=1 period=5000000 unchanged=0
+2026-11-05 17:25:22,997 __main__ INFO training session=2 sigma_u=1 period=5500000 unchanged=0
+2026-11-05 17:25:37,016 __main__ INFO block session=2 period=6000000 delta_c=-0.4970 flip_share=0.500 n_onpath=212
+2026-11-05 17:25:37,017 __main__ INFO training session=2 sigma_u=1 period=6000000 unchanged=0
+2026-11-05 17:25:51,082 __main__ INFO training session=2 sigma_u=1 period=6500000 unchanged=0
+2026-11-05 17:26:04,859 __main__ INFO block session=2 period=7000000 delta_c=-0.7042 flip_share=0.591 n_onpath=159
+2026-11-05 17:26:04,860 __main__ INFO training session=2 sigma_u=1 period=7000000 unchanged=0
+2026-11-05 17:26:18,952 __main__ INFO training session=2 sigma_u=1 period=7500000 unchanged=0
+2026-11-05 17:26:32,394 __main__ INFO block session=2 period=8000000 delta_c=-0.1069 flip_share=0.748 n_onpath=153
+2026-11-05 17:26:32,395 __main__ INFO training session=2 sigma_u=1 period=8000000 unchanged=0
+2026-11-05 17:26:45,573 __main__ INFO training session=2 sigma_u=1 period=8500000 unchanged=0
+2026-11-05 17:27:00,716 __main__ INFO block session=2 period=9000000 delta_c=0.0659 flip_share=0.919 n_onpath=149
+2026-11-05 17:27:00,716 __main__ INFO training session=2 sigma_u=1 period=9000000 unchanged=0
+2026-11-05 17:27:17,106 __main__ INFO training session=2 sigma_u=1 period=9500000 unchanged=365
+2026-11-05 17:27:31,399 __main__ INFO block session=2 period=10000000 delta_c=0.2225 flip_share=0.100 n_onpath=70
+2026-11-05 17:27:31,400 __main__ INFO training session=2 sigma_u=1 period=10000000 unchanged=175
+2026-11-05 17:27:45,728 __main__ INFO training session=2 sigma_u=1 period=10500000 unchanged=675
+2026-11-05 17:27:54,754 __main__ INFO saved Q-tables session=2 to ./results/m1_long/s2/qtables/session_002
+2026-11-05 17:27:54,755 __main__ INFO eval start session=2 sigma_u=1 periods=100000 greedy=True
+2026-11-05 17:27:56,374 __main__ INFO irf start session=2 sigma_u=1
+2026-11-05 17:27:56,686 __main__ INFO session done sigma_u=1 session=2 converged=True periods=10825000 delta_c=0.2234 delta_c_expected=0.2045 periods/s=35508
+2026-11-05 17:27:56,781 __main__ INFO wrote ./results/m1_long/s2/sessions.parquet (1 rows)
+2026-11-05 17:27:56,832 __main__ INFO wrote ./results/m1_long/s2/periods.parquet (11920 rows)
+2026-11-05 17:27:56,834 __main__ INFO wrote ./results/m1_long/s2/trajectory.parquet (10 rows)

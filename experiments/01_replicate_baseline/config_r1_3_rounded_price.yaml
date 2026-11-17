@@ -1,0 +1,71 @@
+# R1.3: the baseline specification with rewards on the rounded price. It is
+# config_r1_baseline.yaml with ONE change: overrides.reward_price "snapped" (profits computed
+# on the price rounded to the price grid) instead of "raw"; "snapped" is the code value of the
+# switch. Purpose: evidence for the rounded-price artefact, with both reward prices on the
+# same code (outputs/tables/tab_sensitivity.tex, outputs/figures/fig_delta_c_distribution.pdf).
+# Everything else (params_baseline.yaml, 1M window, 100M cap, diagnostics, IRF with
+# 0.125/0.25/0.5-bin shocks and 100 trials, seed_base 42) is identical to
+# config_r1_baseline.yaml.
+#
+# Run, one session per call (i = 0 to 29; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/01_replicate_baseline/config_r1_3_rounded_price.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r1_3_rounded_price/s<i>
+# Names recorded at run time in the metadata and logs under results/r1_3_rounded_price/:
+# experiment "main_snapped", config_m2_snapped.yaml.
+
+experiment:
+  name: r1_3_rounded_price
+  description: 'R1.3: baseline specification with reward_price snapped (A/B for the rounded-price artefact
+    on current code)'
+params: ../shared/params_baseline.yaml
+agents:
+- type: qlearner
+- type: qlearner
+sweep:
+  sigma_u:
+  - 1.0
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 100000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.1
+    trajectory_eval_periods: 20000
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: price_bins
+    magnitudes:
+    - 0.125
+    - 0.25
+    - 0.5
+  deviation:
+    enabled: true
+    bins:
+    - 4
+    - 8
+    agents:
+    - 0
+    - 1
+runner:
+  log_every: 1000000
+output:
+  directory: results/r1_3_rounded_price
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: snapped
+  market_maker: rolling_ols

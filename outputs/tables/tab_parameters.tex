@@ -1,0 +1,29 @@
+\begin{tabular}{lrr>{\raggedright\arraybackslash}p{5.6cm}}
+\toprule
+Parameter & DGJ & Thesis & Reason \\
+\midrule
+Speculators $I$ & 2 & 2 & DGJ value; comparability. \\
+Demand elasticity $\xi$ & 500 & 500 & Regime choice: DGJ's large-$\xi$ cell, where they find price-trigger collusion. \\
+Noise-trader s.d. $\sigma_u$ & 0.1 & 1.0 & Regime choice: a higher noise level in DGJ's price-trigger region; at both levels noise moves the price by far less than one price bin. R1.8 repeats the baseline at 0.1. \\
+Discount factor $\rho$ & 0.95 & 0.95 & DGJ value; comparability. \\
+Inventory penalty $\theta$ & 0.1 & 0.1 & DGJ value; comparability. \\
+Value grid $n_v$ & 10 & 5 & Laptop scale: with DGJ's ten values and exploration decay, a session takes about 110 minutes instead of 20 (run R1.7). \\
+Action grid $n_x$ & 15 & 15 & DGJ value; comparability. \\
+Price grid $n_p$ & 31 & 31 & DGJ value; comparability. \\
+Market-maker window $T_m$ & 10,000 & 10,000 & DGJ value; comparability. \\
+Learning rate $\alpha$ & 0.01 & 0.01 & DGJ value; comparability. \\
+Exploration decay $\beta$ & $5\times10^{-7}$ & $1\times10^{-6}$ & DGJ rule, rescaled to five values: about 430 random draws per cell of the table, as in DGJ. \\
+Exploration counter & per $v$ & per $v$ & DGJ rule (Equation~4.3). \\
+Q-value initialisation & Section~4.2 & Section~4.2 & DGJ rule (Section~4.2). \\
+Action grid layout & not stated & per-$v$ levels & Interpretation of DGJ's description (p.~22): levels of trading intensity per $v$. \\
+Convergence window & 1,000,000 & 1,000,000 & DGJ value; comparability. \\
+Maximum periods & none & $1\times10^{8}$ & Laptop scale: one session that converges very late cannot hold up a run; about twice the median session. \\
+Sessions $N_{\mathrm{sim}}$ & 1,000 & 30 & Laptop scale: 1,000 such sessions would occupy one processor for about 11 weeks per run; a run of 30 sessions takes about 11 hours. \\
+\midrule
+Actor step size $\alpha_{\mathrm{actor}}$ & -- & 0.1 & Own design: first-principles default, selected by stability in a pilot; see limitations. \\
+Critic step size $\alpha_{\mathrm{critic}}$ & -- & 0.05 & Own design: first-principles default, selected by stability in a pilot; see limitations. \\
+Entropy coefficient $\eta_0$ & -- & 0.1 & Own design: first-principles default, selected by stability in a pilot; see limitations. \\
+Entropy decay & -- & $=\beta$ & Own design: same clock as the Q-learner's $\varepsilon$, for comparability. \\
+Reward scale & -- & $=\pi^M$ & Own design: makes the actor step size unit-free. \\
+\bottomrule
+\end{tabular}

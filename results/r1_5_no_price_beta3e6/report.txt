@@ -1,0 +1,86 @@
+
+################ σ_u = 1 ################
+=== SUMMARY ===
+Sessions: 30 | converged: 30 | non-converged: 0
+Δ^C per-path benchmarks (paper OA eq. IA.4.1):
+--- ALL sessions: n=30 ---
+    Δ^C: mean=+0.2385  median=+0.2185  sd=0.0904  min=+0.0977  max=+0.4384
+    bootstrap 95% CI of the mean: [+0.2071, +0.2712]
+    share with Δ^C > 0: 100.0%  |  mean |Δ^C_0 − Δ^C_1|: 0.1186
+--- converged sessions: n=30 ---
+    Δ^C: mean=+0.2385  median=+0.2185  sd=0.0904  min=+0.0977  max=+0.4384
+    bootstrap 95% CI of the mean: [+0.2071, +0.2712]
+    share with Δ^C > 0: 100.0%  |  mean |Δ^C_0 − Δ^C_1|: 0.1186
+--- settled (flip share over non-degenerate on-path states <= 0.10): n=5 ---
+    Δ^C: mean=+0.2170  median=+0.2046  sd=0.0541  min=+0.1522  max=+0.3146
+    bootstrap 95% CI of the mean: [+0.1769, +0.2706]
+    share with Δ^C > 0: 100.0%  |  mean |Δ^C_0 − Δ^C_1|: 0.1576
+Grid Nash equilibrium: Δ^C = -0.029; best symmetric grid outcome: Δ^C = +1.000
+Δ^C (expected-value benchmarks, pre-Phase-0 definition, all sessions): mean=+0.2241  median=+0.2098  std=0.0974  min=+0.0707  max=+0.4784  IQR=[+0.1572, +0.2585]
+χ̂ (all sessions): mean=160.64 std=2.55  (χ^N=166.67, χ^M=125.00)
+λ̂ (all sessions): mean=0.002000  (λ^N=0.002000)
+Profit per agent (all sessions): mean=43.802  (π^N=42.608, π^M=47.934, mean π^N on path=42.534)
+Profit gain vs Nash (Σπ / Σπ^N_path, all sessions): mean=1.0298
+Convergence period (converged sessions): mean=23.57M median=22.99M min=9.14M max=36.61M
+Throughput: mean=32,668 periods/s | total wall-clock=6.09 h
+Code version(s): ['a1fca51daacc295ee3eecea6186c4da27a34ee80', 'a1fca51daacc295ee3eecea6186c4da27a34ee80+dirty', 'c2dcdbf31cddb97a67f3bd18453d1f2ad78aec86+dirty', 'd79e448ddaa69bad7599f720e76a3d6a6be60ff5']
+WARNING: mixed or dirty code versions across sessions.
+
+=== PER-SESSION TABLE ===
+sess source     conv settled   flip      period      Δ^C  Δ^C_exp      χ̂  prof_0  prof_1
+-----------------------------------------------------------------------------------------
+   0 s0         yes  no       0.650  15,980,000  +0.3427  +0.3203  157.60   44.47   44.16
+   1 s1         yes  no       0.150  36,436,000  +0.1362  +0.1458  163.32   43.72   43.05
+   2 s2         yes  no       0.225  22,663,000  +0.2024  +0.2028  161.79   43.39   43.98
+   3 s3         yes  no       0.125  34,921,000  +0.0977  +0.0707  164.01   43.43   42.54
+   4 s4         yes  no       0.200  25,878,000  +0.2356  +0.2127  161.05   43.67   43.81
+   5 s5         yes  no       0.325  18,712,000  +0.2543  +0.2102  160.51   43.72   43.73
+   6 s6         yes  yes      0.050  26,109,000  +0.1522  +0.1582  163.12   43.61   43.29
+   7 s7         yes  no       0.200  24,044,000  +0.2358  +0.2523  161.03   44.59   43.32
+   8 s8         yes  yes      0.025  15,190,000  +0.3146  +0.2996  158.41   44.80   43.60
+   9 s9         yes  no       0.150  13,540,000  +0.4253  +0.4486  155.06   45.11   44.89
+  10 s10        yes  no       0.575  11,069,000  +0.4022  +0.3757  156.14   44.64   44.57
+  11 s11        yes  no       0.425  30,095,000  +0.1814  +0.1569  162.11   43.22   43.66
+  12 s12        yes  no       0.450  22,601,000  +0.1936  +0.1249  162.10   42.85   43.69
+  13 s13        yes  no       0.225  30,927,000  +0.1482  +0.1252  163.02   43.15   43.40
+  14 s14        yes  no       0.325  15,760,000  +0.3775  +0.3326  156.04   44.23   44.52
+  15 s15        yes  no       0.525  33,428,000  +0.2561  +0.2560  160.50   44.02   43.92
+  16 s16        yes  no       0.650  23,990,000  +0.2664  +0.2594  159.65   43.68   44.30
+  17 s17        yes  no       0.175  23,325,000  +0.2885  +0.2284  159.31   44.06   43.59
+  18 s18        yes  no       0.125  34,520,000  +0.1742  +0.1490  162.40   44.63   42.18
+  19 s19        yes  no       0.500  14,521,000  +0.2813  +0.2159  158.90   44.01   43.50
+  20 s20        yes  no       0.725   9,144,000  +0.4384  +0.4784  155.14   45.79   44.52
+  21 s21        yes  no       0.300  36,608,000  +0.1856  +0.1728  162.20   42.72   44.34
+  22 s22        yes  yes      0.025  36,008,000  +0.1905  +0.1625  162.19   42.82   44.13
+  23 s23        yes  no       0.450  16,890,000  +0.3153  +0.3351  159.05   44.35   44.44
+  24 s24        yes  no       0.200  22,210,000  +0.1391  +0.1314  163.39   43.30   43.32
+  25 s25        yes  no       0.400  20,937,000  +0.1769  +0.1920  162.37   43.73   43.53
+  26 s26        yes  yes      0.075  20,577,000  +0.2233  +0.2141  161.29   43.43   44.07
+  27 s27        yes  no       0.150  28,116,000  +0.1013  +0.0721  164.19   43.51   42.48
+  28 s28        yes  yes      0.075  24,191,000  +0.2046  +0.2094  161.93   44.09   43.36
+  29 s29        yes  no       0.275  18,614,000  +0.2137  +0.2094  161.46   43.90   43.55
+
+=== Δ^C DISTRIBUTION (per-path, converged sessions) ===
+  [+0.098, +0.132]:   2 █████████████
+  [+0.132, +0.166]:   4 ██████████████████████████
+  [+0.166, +0.200]:   6 ████████████████████████████████████████
+  [+0.200, +0.234]:   4 ██████████████████████████
+  [+0.234, +0.268]:   5 █████████████████████████████████
+  [+0.268, +0.302]:   2 █████████████
+  [+0.302, +0.336]:   2 █████████████
+  [+0.336, +0.370]:   1 ██████
+  [+0.370, +0.404]:   2 █████████████
+  [+0.404, +0.438]:   2 █████████████
+
+=== NOISE-SHOCK IRF (shock − counterfactual, sign-adjusted, normalised) ===
+No noise-shock IRF rows.
+
+=== UNILATERAL-DEVIATION IRF (shock − counterfactual) ===
+No deviation IRF rows.
+
+=== NOTES ===
+Classification thresholds (paper OA §4.5): no response if |dev| < 5e-05 for both agents; price trigger if dev > 5e-04 for both agents.
+Deviations are shock-path minus counterfactual-path at the same period,
+normalised by the session's eval-window mean (sign-adjusted).
+Results dir: ./results/m2_noprice_beta3e6
+Config: ./experiments/01_replicate_baseline/config_m2_noprice_beta3e6.yaml

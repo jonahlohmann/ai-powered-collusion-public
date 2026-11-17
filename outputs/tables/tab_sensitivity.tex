@@ -1,0 +1,17 @@
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+ &  &  &  & \multicolumn{2}{c}{Collusion capacity $\Delta^C$} &  & Deviation \\
+\cmidrule(lr){5-6}
+Run & Sessions & Conv. & Settled & Mean [95\% CI] & Grid Nash & $\hat\chi$ & gain, total \\
+\midrule
+R1 Baseline & 30 & 29 & 25 & 0.34 [0.32, 0.36] & $-$0.029 & 157.7 & 0.36 \\
+R1.1 Earlier specification, early stop & 30 & 15 & – & 0.07 [$-$0.04, 0.16] & $-$0.277 & 158.6 &  \\
+R1.2 Earlier specification & 30 & 30 & 26 & 0.19 [0.16, 0.23] & $-$0.277 & 159.6 & 0.97 \\
+R1.3 Reward on the rounded price & 30 & 30 & 22 & 0.91 [0.88, 0.93] & $-$0.029 & 154.9 & $-$2.72 \\
+R1.4 No lagged price & 30 & 30 & 11 & 0.22 [0.20, 0.24] & $-$0.029 & 161.1 & 0.43$^{a}$ \\
+R1.5 No lagged price, $\beta = 3\times10^{-6}$ & 30 & 30 & 5 & 0.24 [0.21, 0.27] & $-$0.029 & 160.6 & 0.46$^{a}$ \\
+R1.6 DGJ's exploration decay & 30 & 30 & 20 & 0.35 [0.33, 0.38] & $-$0.029 & 157.3 & 0.41 \\
+R1.7 DGJ's value grid and exploration decay & 8 & 8 & 8 & 0.31 [0.29, 0.32] & $-$0.029 & 158.6 & 0.50 \\
+R1.8 DGJ's noise level & 30 & 30 & 18 & 0.34 [0.31, 0.36] & $-$0.029 & 157.8 & 0.40 \\
+\bottomrule
+\end{tabular}

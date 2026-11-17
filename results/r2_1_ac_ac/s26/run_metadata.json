@@ -1,0 +1,109 @@
+{
+  "config_path": "./experiments/02_heterogeneity/config_aa.yaml",
+  "experiment_name": "aa",
+  "code_version": "6f6f03bcd2660cb5cf29084ec9aa1285e652a2f1",
+  "started_utc": "2026-11-08T19:32:25.946154+00:00",
+  "finished_utc": "2026-11-08T19:47:41.155145+00:00",
+  "session_id_start": 26,
+  "n_sim": 1,
+  "output_dir": "./results/aa/s26",
+  "sweep_sigma_u": [
+    1.0
+  ],
+  "python": "3.13.7 (main, Aug 14 2025, 11:12:11) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "numpy": "2.4.4",
+  "cli_overrides": {
+    "session_id_start": 26,
+    "n_sim": 1,
+    "output_dir": "results/aa/s26",
+    "max_periods": null
+  },
+  "resolved_config": {
+    "n_agents": 2,
+    "xi": 500,
+    "sigma_u": 1.0,
+    "rho": 0.95,
+    "theta": 0.1,
+    "n_v": 5,
+    "n_x": 15,
+    "n_p": 31,
+    "T_m": 10000,
+    "iota": 0.1,
+    "action_grid": "per_v",
+    "exploration_counter": "v",
+    "q_init": "paper",
+    "alpha": 0.01,
+    "beta": 1e-06,
+    "convergence_periods": 1000000,
+    "max_periods": 100000000,
+    "reward_price": "raw",
+    "market_maker": "rolling_ols",
+    "experiment": {
+      "name": "aa",
+      "description": "AC\u2013AC population at M2: two tabular softmax actor-critics; 30 sessions"
+    },
+    "agents": [
+      {
+        "type": "actor_critic"
+      },
+      {
+        "type": "actor_critic"
+      }
+    ],
+    "sweep": {
+      "sigma_u": [
+        1.0
+      ]
+    },
+    "simulation": {
+      "n_sim": 1,
+      "convergence_periods": 1000000,
+      "max_periods": 100000000,
+      "eval_periods": 100000,
+      "save_eval_periods": 10000,
+      "eval_greedy": true,
+      "check_every": 1000,
+      "seed_base": 42,
+      "session_id_start": 26,
+      "diagnostics": {
+        "enabled": true,
+        "block_periods": 1000000,
+        "onpath_min_share": 0.001,
+        "settled_max_flip_share": 0.1,
+        "trajectory_eval_periods": 20000
+      }
+    },
+    "irf": {
+      "enabled": true,
+      "pre_periods": 3,
+      "post_periods": 6,
+      "n_trials": 100,
+      "noise": {
+        "units": "price_bins",
+        "magnitudes": [
+          0.125,
+          0.25,
+          0.5
+        ]
+      },
+      "deviation": {
+        "enabled": true,
+        "bins": [
+          4,
+          8
+        ],
+        "agents": [
+          0,
+          1
+        ]
+      }
+    },
+    "runner": {
+      "log_every": 1000000
+    },
+    "output": {
+      "directory": "results/aa/s26"
+    },
+    "save_qtables": true
+  }
+}

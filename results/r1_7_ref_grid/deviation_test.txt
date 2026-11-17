@@ -1,0 +1,56 @@
+Best-response deviation test | 8 session(s) | trials 500 | horizon 60
+=== 1. STATIC INCENTIVES (eval play, v ≠ v̄) ===
+ |v−v̄|  BR share  gain grid  gain cont  grid/cont   profit
+  0.126     0.077      0.036      0.039      0.925     0.95
+  0.385     0.082      0.300      0.324      0.925     8.91
+  0.674     0.105      0.586      0.633      0.926    26.94
+  1.036     0.134      0.664      0.712      0.933    62.29
+  1.645     0.230      1.167      1.236      0.944   154.66
+Pooled: BR share 0.126 | grid gain 0.549 | continuous gain 0.587 | grid keeps 93.5% of the deviation gain
+Grid one-shot gain per period (all v) / (π^M − π^N): 0.090
+
+=== 2. DYNAMIC TEST (frozen policies, horizon 60, ρ = 0.95, CRN) ===
+gain0 = deviation period; cont = discounted continuation; total = gain0 + cont.
+opp react = opponent's action changes at t+1; aggr = share of those that are more aggressive.
+kind     |v−v̄|     n   gain0    cont   total P(tot>0) opp react  aggr untouched
+grid_br   0.126  1695   +0.04   +0.00   +0.04     0.98      0.00   nan      0.00
+grid_br   0.385  1724   +0.33   -0.13   +0.20     0.87      0.33  0.51      0.00
+grid_br   0.674  1606   +0.66   -0.03   +0.63     0.89      0.33  0.52      0.00
+grid_br   1.036  1607   +0.73   -0.32   +0.41     0.85      0.42  0.54      0.00
+grid_br   1.645  1368   +1.54   -0.16   +1.38     0.87      0.39  0.52      0.00
+one_up    0.126  1682   +0.01   +0.00   +0.01     0.98      0.00   nan      0.00
+one_up    0.385  1702   +0.06   -0.06   +0.00     0.95      0.05  0.55      0.00
+one_up    0.674  1621   +0.14   -0.04   +0.10     0.93      0.07  0.67      0.00
+one_up    1.036  1571   +0.20   -0.05   +0.16     0.85      0.12  0.60      0.00
+one_up    1.645  1424   +0.38   -0.01   +0.37     0.81      0.15  0.46      0.00
+Grid-BR deviation, total gain: mean over sessions +0.496 [bootstrap 95% CI +0.406, +0.585]
+Sessions: pays (mean − 2 SE > 0) 8/8 | does not pay (mean + 2 SE < 0) 0/8 | unclear 0/8 | point estimate > 0 8/8
+
+=== 3. VALUE STALENESS (stored Q − one-step Bellman target, own Q-table) ===
+kind     |v−v̄| err greedy  err dev   Q gap  P(refreshed dev > greedy)
+grid_br   0.126      -0.52   -20.13  -19.57                       0.98
+grid_br   0.385      -0.33   -20.57  -20.06                       0.83
+grid_br   0.674      +0.89   -20.37  -20.80                       0.84
+grid_br   1.036      +0.00   -21.48  -20.87                       0.81
+grid_br   1.645      +2.48   -22.20  -23.64                       0.82
+one_up    0.126      -0.85   -20.62  -19.76                       0.98
+one_up    0.385      +0.72   -18.97  -19.72                       0.94
+one_up    0.674      -2.63   -23.34  -20.67                       0.92
+one_up    1.036      +0.15   -21.22  -21.10                       0.85
+one_up    1.645      -0.05   -24.23  -23.91                       0.79
+Reading: err dev ≪ err greedy ≈ 0 means the agent's value of the deviation is outdated
+(it is not refreshed because the action is no longer explored), not that it is punished.
+
+=== PER SESSION (grid-BR deviation, mean over agents and trials) ===
+sess   gain0    cont   total     SE
+   0   +0.54   +0.00   +0.54   0.11
+   1   +0.58   -0.18   +0.40   0.13
+   2   +0.65   +0.05   +0.69   0.10
+   3   +0.61   -0.34   +0.27   0.12
+   4   +0.55   +0.08   +0.63   0.12
+   5   +0.72   -0.21   +0.51   0.11
+   6   +0.72   -0.18   +0.55   0.15
+   7   +0.60   -0.22   +0.38   0.11
+
+Results dir: ./results/paper_exact
+Config: ./experiments/01_replicate_baseline/config_paper_exact.yaml

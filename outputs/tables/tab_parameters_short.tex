@@ -1,0 +1,12 @@
+\begin{tabular}{lrr>{\raggedright\arraybackslash}p{8.1cm}}
+\toprule
+Parameter & DGJ & Thesis & Reason \\
+\midrule
+Noise-trader s.d. $\sigma_u$ & 0.1 & 1.0 & Regime choice: a higher noise level in DGJ's price-trigger region; at both levels noise moves the price by far less than one price bin. R1.8 repeats the baseline at 0.1. \\
+Value grid $n_v$ & 10 & 5 & Laptop scale: with DGJ's ten values and exploration decay, a session takes about 110 minutes instead of 20 (run R1.7). \\
+Exploration decay $\beta$ & $5\times10^{-7}$ & $1\times10^{-6}$ & DGJ rule, rescaled to five values: about 430 random draws per cell of the table, as in DGJ. \\
+Action grid layout & not stated & per-$v$ levels & Interpretation of DGJ's description (p.~22): levels of trading intensity per $v$. \\
+Maximum periods & none & $1\times10^{8}$ & Laptop scale: one session that converges very late cannot hold up a run; about twice the median session. \\
+Sessions $N_{\mathrm{sim}}$ & 1,000 & 30 & Laptop scale: 1,000 such sessions would occupy one processor for about 11 weeks per run; a run of 30 sessions takes about 11 hours. \\
+\bottomrule
+\end{tabular}

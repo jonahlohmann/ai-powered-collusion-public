@@ -1,0 +1,65 @@
+# Exploratory run, outside the 12 runs of the thesis. See README.md in this folder.
+# This is config_r1_8_ref_noise.yaml with ONE change, overrides.price_grid: "per_v".
+# The lagged price is sorted into a grid built for the lagged value, so that one action level
+# moves the price by about one grid step (Dou et al., 2025, p. 23, footnote 25).
+# The switch does not exist in src/ of this repository: apply price_grid_per_v.patch first.
+# Same seeds 42 + session id, 30 sessions. Comparison: R1.8.
+# The noise shocks of the impulse responses keep the bin of the global grid as their unit.
+# Only these comment lines and the first words of the description differ from the file the
+# run was started with.
+
+experiment:
+  name: "pg_per_v"
+  description: "Exploratory run: R1.8 (baseline specification, sigma_u = 0.1) with a price grid per value (DGJ, footnote 25)"
+
+params: "../shared/params_baseline.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "qlearner"
+
+sweep:
+  sigma_u: [0.1]
+
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 100000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: "price_bins"
+    magnitudes: [0.125, 0.25, 0.5]
+  deviation:
+    enabled: true
+    bins: [4, 8]
+    agents: [0, 1]
+
+runner:
+  log_every: 1000000
+
+output:
+  directory: "results/pg_per_v"
+
+overrides:
+  sigma_u: 0.1
+  save_qtables: true
+  reward_price: "raw"
+  market_maker: "rolling_ols"
+  price_grid: "per_v"

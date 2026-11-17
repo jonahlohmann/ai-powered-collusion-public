@@ -1,0 +1,173 @@
+--- a/src/ai_trading/env/discretization.py
++++ b/src/ai_trading/env/discretization.py
+@@ -290,6 +290,61 @@
+     return np.linspace(p_low - pad, p_high + pad, n_p, dtype=np.float64)
+ 
+ 
++def build_price_table(
++    n_p: int,
++    v_grid: np.ndarray,
++    n_agents: int,
++    xi: float,
++    sigma_u: float,
++    theta: float,
++    sigma_v: float = 1.0,
++    v_bar: float = 0.0,
++    iota: float = _DEFAULT_IOTA,
++) -> np.ndarray:
++    """One price grid per value state (paper §4.2 read per value; footnote 25).
++
++    Row k is the grid for prices set in a period whose value is ``v_k``:
++
++        p_H(k) = v̄ + λ^N · (max{I·χ^M·dv_k, I·χ^N·dv_k} + 1.96 · σ_u)
++        p_L(k) = v̄ + λ^N · (min{I·χ^M·dv_k, I·χ^N·dv_k} − 1.96 · σ_u)
++
++    with ``dv_k = v_k − v̄``, discretised over
++    ``[p_L − ι(p_H − p_L), p_H + ι(p_H − p_L)]`` into ``n_p`` points. With
++    ``n_p ≈ 2 n_x`` and two speculators, one level on the per-v action grid
++    then moves the price by about one grid step (paper footnote 25).
++
++    Args:
++        n_p: Number of grid points per row (must be ≥ 2).
++        v_grid: 1D array of value grid points.
++        n_agents: Number of strategic informed speculators (paper symbol I).
++        xi: Demand elasticity of information-insensitive investors.
++        sigma_u: Standard deviation of noise trader order flow.
++        theta: Market-maker inventory penalty.
++        sigma_v: Standard deviation of fundamental value.
++        v_bar: Mean of the fundamental value.
++        iota: Padding factor on the interval width (paper ι = 0.1).
++
++    Returns:
++        Array of shape ``(len(v_grid), n_p)``; every row ascending.
++    """
++    if n_p < 2:
++        raise ValueError(f"n_p must be ≥ 2, got {n_p}.")
++    chi_n = benchmarks.x_N(n_agents, xi, sigma_u, theta, sigma_v)
++    chi_m = benchmarks.x_M(n_agents, xi, sigma_u, theta, sigma_v)
++    lam_n = benchmarks.lambda_N(n_agents, xi, sigma_u, theta, sigma_v)
++    v_arr = np.asarray(v_grid, dtype=np.float64)
++    table = np.empty((len(v_arr), n_p), dtype=np.float64)
++    for k, v_k in enumerate(v_arr):
++        dv = float(v_k - v_bar)
++        y_n = n_agents * chi_n * dv
++        y_m = n_agents * chi_m * dv
++        p_high = v_bar + lam_n * (max(y_n, y_m) + 1.96 * sigma_u)
++        p_low = v_bar + lam_n * (min(y_n, y_m) - 1.96 * sigma_u)
++        pad = iota * (p_high - p_low)
++        table[k] = np.linspace(p_low - pad, p_high + pad, n_p, dtype=np.float64)
++    return table
++
++
+ def continuous_to_bin(value: float, grid: np.ndarray) -> int:
+     """Index of the nearest grid point to ``value``.
+ 
+--- a/src/ai_trading/env/market.py
++++ b/src/ai_trading/env/market.py
+@@ -100,6 +100,7 @@
+     build_action_table,
+     build_chi_grid,
+     build_price_grid,
++    build_price_table,
+     build_v_grid,
+     continuous_to_bin,
+ )
+@@ -180,6 +181,11 @@
+         if self.state_price not in ("lagged", "none"):
+             raise ValueError(
+                 f"state_price must be 'lagged' or 'none', got {self.state_price!r}."
++            )
++        self.price_grid_mode: str = str(config.get("price_grid", "global"))
++        if self.price_grid_mode not in ("global", "per_v"):
++            raise ValueError(
++                f"price_grid must be 'global' or 'per_v', got {self.price_grid_mode!r}."
+             )
+         self.market_maker: str = str(config.get("market_maker", "rolling_ols"))
+         if self.market_maker not in ("rolling_ols", "fixed_lambda"):
+@@ -253,6 +259,36 @@
+             iota=iota,
+         )
+ 
++        # Side experiment (2026-11-16): one price grid per value state, so that
++        # one action level moves the price by about one grid step (paper
++        # footnote 25). ``price_grid`` above stays the global grid (shape
++        # (n_p,)) for the callers that expect it; with "per_v" the state index
++        # of a price set at value v_k comes from row k of ``price_table``.
++        self.price_table: np.ndarray | None = None
++        self._n_p: int = n_p
++        self._p_lo: list[float] = []
++        self._p_step: list[float] = []
++        self._v_degenerate: list[bool] = []
++        if self.price_grid_mode == "per_v":
++            self.price_table = build_price_table(
++                n_p=n_p,
++                v_grid=self.v_grid,
++                n_agents=self.n_agents,
++                xi=self.xi,
++                sigma_u=self.sigma_u,
++                theta=self.theta,
++                sigma_v=self.sigma_v,
++                v_bar=self.v_bar,
++                iota=iota,
++            )
++            self._p_lo = [float(row[0]) for row in self.price_table]
++            self._p_step = [float(row[1] - row[0]) for row in self.price_table]
++            # At v_k = v̄ every per-v action trades zero: the price carries no
++            # information about the actions, so its bin is fixed at the centre.
++            self._v_degenerate = [
++                bool(abs(float(v_k) - self.v_bar) < 1e-12) for v_k in self.v_grid
++            ]
++
+         seed_source = config.get("rng_seed_sequence")
+         self.rng: np.random.Generator = np.random.default_rng(
+             seed_source if seed_source is not None else self._seed
+@@ -323,7 +359,7 @@
+         self._v_curr_bin = v_curr_bin
+ 
+         self._p_prev = float(self.v_bar)
+-        p_prev_bin = continuous_to_bin(self._p_prev, self.price_grid)
++        p_prev_bin, _ = self._price_bin(self._p_prev, v_prev_bin)
+ 
+         p_state = p_prev_bin if self.state_price == "lagged" else 0
+         state = np.array([p_state, v_prev_bin, v_curr_bin], dtype=np.int64)
+@@ -394,8 +430,7 @@
+ 
+         lambda_hat = self._estimate_lambda()
+         p_raw = self.v_bar + lambda_hat * y_t
+-        p_bin = continuous_to_bin(p_raw, self.price_grid)
+-        p_snapped = float(self.price_grid[p_bin])
++        p_bin, p_snapped = self._price_bin(p_raw, v_bin)
+         p_t = p_raw if self.reward_price == "raw" else p_snapped
+ 
+         v_t = self._v_curr
+@@ -432,6 +467,30 @@
+         }
+         return states, rewards, False, info
+ 
++    def _price_bin(self, price: float, v_bin: int) -> tuple[int, float]:
++        """Bin index and grid value of ``price`` set in a period with value ``v_bin``.
++
++        Global grid: nearest point of ``price_grid``. Per-v grid: nearest point
++        of row ``v_bin`` of ``price_table`` (out-of-range prices map to the
++        nearest endpoint); the centre bin at the value that equals v̄.
++
++        Args:
++            price: Raw clearing price.
++            v_bin: Index of the value of the period in which the price was set.
++
++        Returns:
++            Tuple ``(bin_index, grid_value)``.
++        """
++        if self.price_table is None:
++            b = continuous_to_bin(price, self.price_grid)
++            return b, float(self.price_grid[b])
++        if self._v_degenerate[v_bin]:
++            b = self._n_p // 2
++        else:
++            b = int(round((price - self._p_lo[v_bin]) / self._p_step[v_bin]))
++            b = min(max(b, 0), self._n_p - 1)
++        return b, float(self.price_table[v_bin, b])
++
+     def _clear_buffers(self) -> None:
+         """Empty the rolling-regression ring buffer and its running sums."""
+         self._y_buf.fill(0.0)

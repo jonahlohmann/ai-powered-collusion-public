@@ -1,0 +1,69 @@
+# R1.6: reference run with DGJ's exploration decay. It is config_r1_baseline.yaml with TWO
+# changes: overrides.beta 5e-7 (DGJ's value; twice the baseline specification's exploration
+# per cell at n_v = 5) and simulation.max_periods 150M (exploration that fades half as fast
+# takes longer to converge). Purpose: sensitivity of the result of the baseline specification
+# to the exploration decay (outputs/tables/tab_sensitivity.tex). Everything else is identical
+# to config_r1_baseline.yaml.
+#
+# Run, one session per call (i = 0 to 29; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/01_replicate_baseline/config_r1_6_ref_beta.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r1_6_ref_beta/s<i>
+# Names recorded at run time in the metadata and logs under results/r1_6_ref_beta/:
+# experiment "m2_beta5e7", config_m2_beta5e7.yaml.
+
+experiment:
+  name: r1_6_ref_beta
+  description: 'R1.6: baseline specification with the literal paper beta 5e-7, cap 150M'
+params: ../shared/params_baseline.yaml
+agents:
+- type: qlearner
+- type: qlearner
+sweep:
+  sigma_u:
+  - 1.0
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 150000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.1
+    trajectory_eval_periods: 20000
+irf:
+  enabled: true
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: price_bins
+    magnitudes:
+    - 0.125
+    - 0.25
+    - 0.5
+  deviation:
+    enabled: true
+    bins:
+    - 4
+    - 8
+    agents:
+    - 0
+    - 1
+runner:
+  log_every: 1000000
+output:
+  directory: results/r1_6_ref_beta
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: raw
+  market_maker: rolling_ols
+  beta: 5.0e-07

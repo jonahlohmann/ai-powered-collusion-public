@@ -1,0 +1,73 @@
+# R1.5: the baseline specification without the lagged price in the state, with an exploration
+# that fades three times as fast (beta 3e-6).
+#
+# It is config_r1_baseline.yaml with TWO changes: overrides.state_price "none" (as R1.4) and
+# overrides.beta 3.0e-6. Reason for 3e-6: without the price the same random draws fall on
+# about three times fewer state-action cells (reachable lagged-price bins per v_{t-1} under
+# the baseline specification: 5, 2, 1, 2, 5; mean 3); beta x 3 gives one third of the draws
+# and so restores the exploration per reachable cell. It separates "no monitoring" from "more
+# exploration per cell". irf.enabled is false, as in R1.4.
+#
+# Run, one session per call (i = 0 to 29; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/01_replicate_baseline/config_r1_5_no_price_beta3e6.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/r1_5_no_price_beta3e6/s<i>
+# Names recorded at run time in the metadata and logs under results/r1_5_no_price_beta3e6/:
+# experiment "m2_noprice_beta3e6", config_m2_noprice_beta3e6.yaml.
+
+experiment:
+  name: "r1_5_no_price_beta3e6"
+  description: "R1.5: the baseline specification without the lagged price in the state, beta 3e-6"
+
+params: "../shared/params_baseline.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "qlearner"
+
+sweep:
+  sigma_u: [1.0]
+
+simulation:
+  n_sim: 30
+  convergence_periods: 1000000
+  max_periods: 100000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: false
+  pre_periods: 3
+  post_periods: 6
+  n_trials: 100
+  noise:
+    units: "price_bins"
+    magnitudes: [0.125, 0.25, 0.5]
+  deviation:
+    enabled: true
+    bins: [4, 8]
+    agents: [0, 1]
+
+runner:
+  log_every: 1000000
+
+output:
+  directory: "results/r1_5_no_price_beta3e6"
+
+overrides:
+  sigma_u: 1.0
+  save_qtables: true
+  reward_price: "raw"
+  state_price: "none"
+  beta: 3.0e-6
+  market_maker: "rolling_ols"

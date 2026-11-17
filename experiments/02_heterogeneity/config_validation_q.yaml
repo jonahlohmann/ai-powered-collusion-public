@@ -1,0 +1,63 @@
+# Validation run of the Q-learner (not one of the 12 runs of the thesis; reported in
+# outputs/tables/tab_validation.tex). The tabular Q-learner (agent 0) trades against an
+# opponent who always plays the Nash intensity chi^N and never reacts (fixed_chi, agent 1).
+# The learner's best response is to trade at about the Nash intensity itself. Criterion, fixed
+# before the run: delta_c_agent_0 >= -0.10 and chi_hat_agent_0 >= 152. The baseline
+# specification (params_baseline.yaml) with beta 5e-6 (exploration ends by about 5M periods)
+# and a cap of 20M periods; no IRF (not needed for the criterion). 4 sessions, about 8 minutes
+# each.
+#
+# Run, one session per call (i = 0 to 3; seed = seed_base + session id):
+#   uv run python -m ai_trading.simulation.runner \
+#       --config experiments/02_heterogeneity/config_validation_q.yaml \
+#       --session-id-start <i> --n-sim 1 --output-dir results/validation_q/s<i>
+# Names recorded at run time in the metadata and logs under results/validation_q/:
+# experiment "br_q", config_br_q.yaml.
+
+experiment:
+  name: "validation_q"
+  description: "Validation run: Q-learner vs fixed Nash opponent, 4 sessions, beta 5e-6, cap 20M, no IRF"
+
+params: "../shared/params_baseline.yaml"
+
+agents:
+  - type: "qlearner"
+  - type: "fixed_chi"
+    config:
+      chi: "nash"
+
+sweep:
+  sigma_u: [1.0]
+
+simulation:
+  n_sim: 4
+  convergence_periods: 1000000
+  max_periods: 20000000
+  eval_periods: 100000
+  save_eval_periods: 10000
+  eval_greedy: true
+  check_every: 1000
+  seed_base: 42
+  session_id_start: 0
+  diagnostics:
+    enabled: true
+    block_periods: 1000000
+    onpath_min_share: 0.001
+    settled_max_flip_share: 0.10
+    trajectory_eval_periods: 20000
+
+irf:
+  enabled: false
+
+runner:
+  log_every: 1000000
+
+output:
+  directory: "results/validation_q"
+
+overrides:
+  sigma_u: 1.0
+  beta: 5.0e-6
+  save_qtables: true
+  reward_price: "raw"
+  market_maker: "rolling_ols"
